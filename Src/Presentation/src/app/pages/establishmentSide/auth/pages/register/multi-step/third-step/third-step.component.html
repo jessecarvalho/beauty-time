@@ -1,0 +1,13 @@
+<section id="shared">
+  <div class="form">
+    <img src="assets/images/logo-light.png" alt="logo" id="logo" >
+    <input type="text" placeholder="E-mail" [(ngModel)]="email" (ngModelChange)="onInputChange()">
+    <input type="password" placeholder="Password" [(ngModel)]="password" (ngModelChange)="onInputChange()" >
+    <div class="navigation-buttons">
+      <a [routerLink]="['/establishmentSide/register/second-step']" [queryParams]="{businessName, businessType, businessState, businessCity, businessZipCode, businessAddress, email}">
+        <button type="button" class="back">Back</button>
+      </a>
+      <button [disabled]="!inputValidated" (click)="register()">Register</button>
+    </div>
+  </div>
+</section>

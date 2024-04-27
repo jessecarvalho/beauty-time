@@ -6,7 +6,7 @@ footer
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: $primary-color;
+  background: linear-gradient(90deg, $fourth-color, $medium-color);
 
   .brand
   {

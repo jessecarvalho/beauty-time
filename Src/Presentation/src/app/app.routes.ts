@@ -1,18 +1,18 @@
 import { Routes } from '@angular/router';
-import {HomeComponent} from "./pages/home/home.component";
-import {ServiceComponent} from "./pages/appointments/service/service.component";
-import {ScheduleComponent} from "./pages/appointments/schedule/schedule.component";
-import {ConfirmationComponent} from "./pages/appointments/confirmation/confirmation.component";
-import {HomeComponent as HomeEstablishmentComponent} from "./pages/establishment/management/pages/home/home.component";
-import {LoginComponent} from "./pages/establishment/auth/login/login.component";
-import {FirstStepComponent} from "./pages/establishment/auth/register/multi-step/first-step/first-step.component";
-import {SecondStepComponent} from "./pages/establishment/auth/register/multi-step/second-step/second-step.component";
-import {ThirdStepComponent} from "./pages/establishment/auth/register/multi-step/third-step/third-step.component";
+import {HomeComponent} from "./pages/institucional/home.component";
+import {ServiceComponent} from "./pages/clientSide/service/service.component";
+import {ScheduleComponent} from "./pages/clientSide/schedule/schedule.component";
+import {ConfirmationComponent} from "./pages/clientSide/confirmation/confirmation.component";
+import {HomeComponent as HomeEstablishmentComponent} from "./pages/establishmentSide/establishment/pages/home/home.component";
+import {LoginComponent} from "./pages/establishmentSide/auth/pages/login/login.component";
+import {FirstStepComponent} from "./pages/establishmentSide/auth/pages/register/multi-step/first-step/first-step.component";
+import {SecondStepComponent} from "./pages/establishmentSide/auth/pages/register/multi-step/second-step/second-step.component";
+import {ThirdStepComponent} from "./pages/establishmentSide/auth/pages/register/multi-step/third-step/third-step.component";
 
 
 export const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'establishment',
+  {path: 'establishmentSide',
     children: [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: FirstStepComponent },
@@ -22,7 +22,7 @@ export const routes: Routes = [
 
   ]},
   {
-    path: 'appointments',
+    path: 'clientSide',
     children: [
       { path: ':establishmentPermalink/:serviceId' , component: ServiceComponent },
       { path: ':establishmentPermalink/:serviceId/schedule' , component: ScheduleComponent },
