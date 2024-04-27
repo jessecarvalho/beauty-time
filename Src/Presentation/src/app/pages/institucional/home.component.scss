@@ -69,5 +69,21 @@
       text-align:center;
     }
   }
+  &#services {
+    text-align: center;
+    h2 {
+      margin-bottom: 25px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 30% 30% 30%;
+      gap: 5%;
+
+      h3 {
+        font-family: 'Montserrat', sans-serif;
+      }
+    }
+  }
+
 }
 
