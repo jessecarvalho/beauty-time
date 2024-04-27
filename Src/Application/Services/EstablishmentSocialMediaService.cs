@@ -2,15 +2,16 @@ using Application.DTOs;
 using Application.Interfaces;
 using AutoMapper;
 using Core.Entities;
+using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
 
 namespace Application.Services;
 public class EstablishmentSocialMediaService : IEstablishmentSocialMediaService
 {
     private readonly Mapper _mapper;
-    private readonly EstablishmentSocialMediaRepository _establishmentSocialMediaRepository;
+    private readonly IEstablishmentSocialMediaRepository _establishmentSocialMediaRepository;
 
-    public EstablishmentSocialMediaService (EstablishmentSocialMediaRepository establishmentSocialMediaRepository, Mapper mapper)
+    public EstablishmentSocialMediaService (IEstablishmentSocialMediaRepository establishmentSocialMediaRepository, Mapper mapper)
     {
         _establishmentSocialMediaRepository = establishmentSocialMediaRepository;
         _mapper = mapper;
