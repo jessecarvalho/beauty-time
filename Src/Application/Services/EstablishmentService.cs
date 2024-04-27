@@ -2,6 +2,7 @@ using Application.DTOs;
 using Application.Interfaces;
 using AutoMapper;
 using Core.Entities;
+using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
 
 namespace Application.Services;
@@ -9,9 +10,9 @@ namespace Application.Services;
 public class EstablishmentService : IEstablishmentService
 {
     private readonly Mapper _mapper;
-    private readonly EstablishmentRepository _establishmentRepository;
+    private readonly IEstablishmentRepository _establishmentRepository;
     
-    public EstablishmentService (EstablishmentRepository establishmentRepository, Mapper mapper)
+    public EstablishmentService (IEstablishmentRepository establishmentRepository, Mapper mapper)
     {
         _establishmentRepository = establishmentRepository;
         _mapper = mapper;
