@@ -2,16 +2,17 @@ using Application.DTOs;
 using Application.Interfaces;
 using AutoMapper;
 using Core.Entities;
+using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
 
 namespace Application.Services;
 
-public class AppointmentService : IAppointmentServices
+public class AppointmentService : IAppointmentService
 {
     private readonly Mapper _mapper;
-    private readonly AppointmentRepository _appointmentRepository;
+    private readonly IAppointmentRepository _appointmentRepository;
 
-    public AppointmentService(AppointmentRepository appointmentRepository, Mapper mapper)
+    public AppointmentService(IAppointmentRepository appointmentRepository, Mapper mapper)
     {
         _appointmentRepository = appointmentRepository;
         _mapper = mapper;
