@@ -11,7 +11,6 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Appointment> Appointments { get; set; }
     public DbSet<Establishment> BarberShops { get; set; }
-    public DbSet<EstablishmentSocialMedia> BarberShopSocialMedias { get; set; }
     public DbSet<Client> Clients { get; set; }
     public DbSet<Service> Services { get; set; }
 }

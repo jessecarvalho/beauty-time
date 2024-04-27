@@ -13,8 +13,6 @@ public class ApplicationProfile : Profile
         CreateMap<Appointment, AppointmentResponseDto>();
         CreateMap<EstablishmentRequestDto, Establishment>();
         CreateMap<Establishment, EstablishmentResponseDto>();
-        CreateMap<EstablishmentSocialMediaRequestDto, EstablishmentSocialMedia>();
-        CreateMap<EstablishmentSocialMedia, EstablishmentSocialMediaResponseDto>();
         CreateMap<Client, ClientResponseDto>();
         CreateMap<ClientRequestDto, Client>();
         CreateMap<Service, ServiceResponseDto>();
