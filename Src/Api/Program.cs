@@ -1,4 +1,4 @@
-using Api.DependencyInjectionConfig;
+using Api.Configurations;
 using Api.Middleware;
 using Application.Mappings;
 using FluentValidation.AspNetCore;
