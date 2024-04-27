@@ -62,15 +62,35 @@
       font-size: 25px;
       font-family: 'Montserrat', sans-serif;
     }
+
+    .about-text {
+      width: 80%;
+      margin: 2% auto 5%;
+    }
+
     #mvv {
       display: grid;
       grid-template-columns: 30% 30% 30%;
+      width: 100%;
       gap: 5%;
       text-align:center;
+
+
+
+      div {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 5% 15% 10%;
+        border-radius: 15px;
+
+        h3, p {
+          margin: 5% 0;
+        }
+      }
     }
   }
   &#services {
     text-align: center;
+    width: 100%;
     h2 {
       margin-bottom: 25px;
     }
@@ -84,6 +104,44 @@
       }
     }
   }
+  &#pricing {
+    h2 {
+      margin-bottom: 25px;
+    }
+    text-align: center;
+    .grid {
+      display: grid;
+      grid-template-columns: 30% 30% 30%;
+      gap: 5%;
+      width: 100%;
 
+      .plan {
+        border: .5px solid $primary-color;
+        border-radius: 15px;
+
+        h4 {
+          font-size: 25px;
+          color: $primary-color;
+          margin: 0;
+          padding: 15px 0;
+          background-color: lighten($fourth-color, 38%);
+        }
+
+        button {
+          border: none;
+          background-color: $fourth-color;
+          width: 100%;
+          color: #fff;
+          font-size: 25px;
+          padding: 15px 0;
+          cursor: pointer;
+          font-weight: 800;
+          border-radius: 0 0 15px 15px;
+        }
+      }
+
+
+    }
+  }
 }
 
