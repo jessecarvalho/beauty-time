@@ -2,7 +2,7 @@ using Application.DTOs;
 
 namespace Application.Interfaces;
 
-public interface IAppointmentServices
+public interface IAppointmentService
 {
     Task<IEnumerable<AppointmentResponseDto>> GetAllAsync();
     Task<IEnumerable<AppointmentResponseDto>> GetByIdAsync(int id);
