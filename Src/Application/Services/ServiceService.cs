@@ -8,10 +8,10 @@ namespace Application.Services;
 
 public class ServiceService : IServiceService
 {
-    private readonly Mapper _mapper;
+    private readonly IMapper _mapper;
     private readonly IServiceRepository _serviceRepository;
         
-    public ServiceService(IServiceRepository serviceRepository, Mapper mapper)
+    public ServiceService(IServiceRepository serviceRepository, IMapper mapper)
     {
         _serviceRepository = serviceRepository;
         _mapper = mapper;

@@ -9,10 +9,10 @@ namespace Application.Services;
 
 public class AppointmentService : IAppointmentService
 {
-    private readonly Mapper _mapper;
+    private readonly IMapper _mapper;
     private readonly IAppointmentRepository _appointmentRepository;
 
-    public AppointmentService(IAppointmentRepository appointmentRepository, Mapper mapper)
+    public AppointmentService(IAppointmentRepository appointmentRepository, IMapper mapper)
     {
         _appointmentRepository = appointmentRepository;
         _mapper = mapper;

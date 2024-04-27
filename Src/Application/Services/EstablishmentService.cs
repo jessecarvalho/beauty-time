@@ -9,10 +9,10 @@ namespace Application.Services;
 
 public class EstablishmentService : IEstablishmentService
 {
-    private readonly Mapper _mapper;
+    private readonly IMapper _mapper;
     private readonly IEstablishmentRepository _establishmentRepository;
     
-    public EstablishmentService (IEstablishmentRepository establishmentRepository, Mapper mapper)
+    public EstablishmentService (IEstablishmentRepository establishmentRepository, IMapper mapper)
     {
         _establishmentRepository = establishmentRepository;
         _mapper = mapper;

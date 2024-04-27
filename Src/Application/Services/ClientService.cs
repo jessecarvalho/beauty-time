@@ -10,10 +10,10 @@ namespace Application.Services;
 
 public class ClientService : IClientService
 {
-    private readonly Mapper _mapper;
+    private readonly IMapper _mapper;
     private readonly IClientRepository _clientRepository;
 
-    public ClientService (IClientRepository clientRepository, Mapper mapper)
+    public ClientService (IClientRepository clientRepository, IMapper mapper)
     {
         _clientRepository = clientRepository;
         _mapper = mapper;
