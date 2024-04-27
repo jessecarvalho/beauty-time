@@ -10,17 +10,17 @@ namespace Api.Controllers;
 [Route("api/appointment")]
 public class AppointmentController : ControllerBase
 {
-    private readonly IAppointmentServices _appointmentServices;
+    private readonly IAppointmentService _appointmentService;
     
-    public AppointmentController(IAppointmentServices appointmentServices)
+    public AppointmentController(IAppointmentService appointmentService)
     {
-        _appointmentServices = appointmentServices;
+        _appointmentService = appointmentService;
     }
     
     [HttpGet]
     public async Task<IActionResult> GetAllAsync()
     {
-        return Ok(await _appointmentServices.GetAllAsync());
+        return Ok(await _appointmentService.GetAllAsync());
     }
     
     [HttpGet("{id}")]
@@ -28,7 +28,7 @@ public class AppointmentController : ControllerBase
     {
         try
         {
-            return Ok(await _appointmentServices.GetByIdAsync(id));
+            return Ok(await _appointmentService.GetByIdAsync(id));
         } catch (ServiceNotFoundException e)
         {
             return NotFound(e.Message);
@@ -39,7 +39,7 @@ public class AppointmentController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> AddAsync(AppointmentRequestDto appointmentRequestDto)
     {
-        return Ok(await _appointmentServices.AddAsync(appointmentRequestDto));
+        return Ok(await _appointmentService.AddAsync(appointmentRequestDto));
     }
     
     [HttpPut("{id}")]
@@ -47,7 +47,7 @@ public class AppointmentController : ControllerBase
     {
         try
         {
-            return Ok(await _appointmentServices.UpdateAsync(id, appointmentRequestDto));
+            return Ok(await _appointmentService.UpdateAsync(id, appointmentRequestDto));
         } catch (ServiceNotFoundException e)
         {
             return NotFound(e.Message);
@@ -59,7 +59,7 @@ public class AppointmentController : ControllerBase
     {
         try
         {
-            return Ok(await _appointmentServices.RemoveAsync(id));
+            return Ok(await _appointmentService.RemoveAsync(id));
         } catch (ServiceNotFoundException e)
         {
             return NotFound(e.Message);
