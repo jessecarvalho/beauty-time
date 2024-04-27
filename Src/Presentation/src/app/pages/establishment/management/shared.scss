@@ -1,0 +1,47 @@
+@import "variables";
+
+#application
+{
+  min-height: 100vh;
+  display: flex;
+
+  #application-container
+  {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 1rem;
+    width: 100%;
+    height: inherit;
+    margin: 0;
+
+    #content
+    {
+      display: grid;
+      grid-template-columns: 33.3% 33.4% 33.3%;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: inherit;
+
+    }
+    p
+    {
+      color: $primary-color;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin: 0;
+    }
+  }
+
+
+}
+
+p
+{
+  margin: 0;
+}
+
+

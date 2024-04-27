@@ -1,0 +1,55 @@
+@import "variables";
+
+#banner
+{
+  height: 100vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(6, 7, 96, 0.5)), url('/assets/images/home/banner.jpg');
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-attachment: fixed;
+
+  h1
+  {
+    font-size: 5em;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  p
+  {
+    font-size: 1.5em;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 0;
+  }
+
+  img
+  {
+    margin-bottom: 0;
+  }
+}
+
+.home-sections
+{
+  padding: 0 $large-screen-padding;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  h2
+  {
+    font-size: 3em;
+    color: #000;
+    text-align: center;
+    font-weight: bold;
+    margin: 0;
+  }
+}
+

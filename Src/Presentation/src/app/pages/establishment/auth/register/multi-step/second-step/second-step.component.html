@@ -1,0 +1,19 @@
+<section id="shared">
+  <div class="form">
+    <h1>Let's identify your business</h1>
+    <input type="text" placeholder="Business Name" class="input-small" [(ngModel)]="businessName" (ngModelChange)="onInputChange()">
+    <input type="text" placeholder="Business Address" class="input-small" [(ngModel)]="businessAddress" (ngModelChange)="onInputChange()">
+    <input type="text" placeholder="City" class="input-small" [(ngModel)]="businessCity" (ngModelChange)="onInputChange()">
+    <input type="text" placeholder="State" class="input-small" [(ngModel)]="businessState" (ngModelChange)="onInputChange()">
+    <input type="text" placeholder="Zip Code" class="input-small" [(ngModel)]="businessZipCode" (ngModelChange)="onInputChange()">
+
+    <div class="navigation-buttons">
+      <a [routerLink]="['/establishment/register']" [queryParams]="{businessName, businessState, businessZipCode, businessCity, businessAddress, businessType, email}">
+        <button class="back">Back</button>
+      </a>
+      <a [routerLink]="['/establishment/register/third-step']" [queryParams]="{businessName, businessState, businessZipCode, businessCity, businessAddress, businessType, email}">
+        <button class="next" [disabled]="!inputValidated">Next</button>
+      </a>
+    </div>
+  </div>
+</section>

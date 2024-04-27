@@ -1,0 +1,157 @@
+@import "variables";
+
+#shared
+{
+  height: 100vh;
+  background: linear-gradient(90deg, $primary-color, $third-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .form
+  {
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    padding: 4%;
+    border-radius: 10px;
+    width: 60%;
+    min-height: 70vh;
+
+    input
+    {
+      width: 500px;
+      border: 1px solid $fourth-color;
+      padding: 20px 15px;
+      border-radius: 5px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 20px;
+
+      &.input-small
+      {
+        font-size: 15px;
+        padding: 15px 7px;
+      }
+
+      &::placeholder
+      {
+        color: #fff;
+      }
+    }
+
+    button
+    {
+      border: none;
+      padding: 10px 0;
+      width: 280px;
+      background: linear-gradient(90deg, $fourth-color, $medium-color);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      cursor: pointer;
+
+      &:hover
+      {
+        background-color: darken($fourth-color, 10%);
+      }
+
+      &:disabled
+      {
+        background: $secondary-color;
+      }
+
+      &.back
+      {
+          background: darken($primary-color, 0%);
+      }
+    }
+    a
+    {
+      color: #fff;
+      text-decoration: none;
+
+      &:hover
+      {
+        text-decoration: underline;
+      }
+    }
+    #logo
+    {
+      width: 200px;
+      margin-bottom: 15px;
+    }
+    h1
+    {
+      color: #fff;
+      font-size: 40px;
+      font-weight: 600;
+      margin: 0;
+    }
+    .chooses
+    {
+      display: grid;
+      grid-template-columns: 33.3% 33.4% 33.3%;
+      text-align: center;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+
+      input[type="radio"]:checked + .choose, input[type="radio"]:hover + .choose {
+        background-color: $fourth-color;
+      }
+
+      .choose
+      {
+        border: 2px solid $fourth-color;
+        cursor: pointer;
+
+        h2
+        {
+          color: #fff;
+          font-size: 18px;
+        }
+      }
+    }
+    .navigation-buttons
+    {
+      display: flex;
+      flex-direction: row;
+      gap: 15px;
+      button
+      {
+        margin-top: 15px;
+
+      }
+    }
+    .resume
+    {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 33.3% 33.4% 33.3%;
+      align-items: center;
+      justify-content: center;
+      h2
+      {
+        font-size: 20px;
+        color: #fff;
+        font-weight: 800;
+        letter-spacing: 3px;
+
+        span
+        {
+          display: block;
+          font-family: 'Montserrat', sans-serif;
+          font-size: 16px;
+          font-weight: 600;
+          letter-spacing: 1px;
+        }
+      }
+    }
+  }
+}

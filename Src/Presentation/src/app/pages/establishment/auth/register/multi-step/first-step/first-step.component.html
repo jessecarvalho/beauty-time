@@ -1,0 +1,39 @@
+<section id="shared">
+  <div class="form">
+    <img src="assets/images/logo-light.png" alt="logo" id="logo">
+    <h1>What is your business?</h1>
+    <div class="chooses">
+      <input type="radio" name="business" id="hair-saloon" value="hair-saloon" class="hidden" [(ngModel)]="businessType" (change)="onSelectionChange()">
+      <label class="choose" for="hair-saloon">
+        <h2>Hair Saloon</h2>
+      </label>
+      <input type="radio" name="business" id="beauty-saloon" value="beauty-saloon" class="hidden" [(ngModel)]="businessType" (change)="onSelectionChange()">
+      <label class="choose" for="beauty-saloon">
+        <h2>Beauty Saloon</h2>
+      </label>
+      <input type="radio" name="business" id="nail-saloon" value="nail-saloon" class="hidden" [(ngModel)]="businessType" (change)="onSelectionChange()">
+      <label class="choose" for="nail-saloon">
+        <h2>Nail Saloon</h2>
+      </label>
+      <input type="radio" name="business" id="spa" value="spa" class="hidden" [(ngModel)]="businessType" (change)="onSelectionChange()">
+      <label class="choose" for="spa">
+        <h2>SPA</h2>
+      </label>
+      <input type="radio" name="business" id="esthetician-studio" value="esthetician-studio" class="hidden" [(ngModel)]="businessType" (change)="onSelectionChange()">
+      <label class="choose" for="esthetician-studio">
+        <h2>Esthetician Studio</h2>
+      </label>
+      <input type="radio" name="business" id="other" value="other" class="hidden" [(ngModel)]="businessType" (change)="onSelectionChange()">
+
+      <label class="choose" for="other">
+        <h2>Other</h2>
+      </label>
+    </div>
+    <div class="navigation-buttons">
+      <a [routerLink]="['/establishment/register/second-step']" [queryParams]="{businessName, businessState, businessZipCode, businessCity, businessAddress, businessType, email}">
+        <button class="next" [disabled]="!businessType">Next</button>
+      </a>
+    </div>
+    <a href="#">Do you already have an account? Sign In</a>
+  </div>
+</section>

@@ -1,0 +1,10 @@
+<section id="shared">
+  <div class="form">
+    <img src="assets/images/logo-light.png" alt="logo" id="logo">
+    <input type="text" placeholder="E-mail" [(ngModel)]="email" (input)="onInputChange()">
+    <input type="password" placeholder="Password" [(ngModel)]="password" (input)="onInputChange()">
+    <button [disabled]="!inputValidated">Login</button>
+    <a href="#">Forgot your password?</a>
+    <a routerLink="/establishment/register">Don't have an account? Sign up</a>
+  </div>
+</section>
