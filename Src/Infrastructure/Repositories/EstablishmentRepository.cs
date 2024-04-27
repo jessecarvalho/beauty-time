@@ -45,15 +45,7 @@ public class EstablishmentRepository : IEstablishmentRepository
         existingBarberShop.Permalink = establishment.Permalink;
         existingBarberShop.Address = establishment.Address;
         existingBarberShop.TelephoneNumber = establishment.TelephoneNumber;
-        existingBarberShop.Rating = establishment.Rating;
-        existingBarberShop.HasWifi = establishment.HasWifi;
-        existingBarberShop.AccessibleForDisabledPeople = establishment.AccessibleForDisabledPeople;
-        existingBarberShop.HasParkPlace = establishment.HasParkPlace;
-        existingBarberShop.AcceptGender = establishment.AcceptGender;
-        existingBarberShop.AcceptCreditCard = establishment.AcceptCreditCard;
-        existingBarberShop.AcceptPix = establishment.AcceptPix;
         existingBarberShop.Active = establishment.Active;
-        existingBarberShop.SocialMedias = establishment.SocialMedias;
         existingBarberShop.Appointments = establishment.Appointments;
 
         await _context.SaveChangesAsync();
