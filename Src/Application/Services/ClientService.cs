@@ -3,6 +3,7 @@ using Application.DTOs;
 using Application.Interfaces;
 using AutoMapper;
 using Core.Entities;
+using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
 
 namespace Application.Services;
@@ -10,9 +11,9 @@ namespace Application.Services;
 public class ClientService : IClientService
 {
     private readonly Mapper _mapper;
-    private readonly ClientRepository _clientRepository;
+    private readonly IClientRepository _clientRepository;
 
-    public ClientService (ClientRepository clientRepository, Mapper mapper)
+    public ClientService (IClientRepository clientRepository, Mapper mapper)
     {
         _clientRepository = clientRepository;
         _mapper = mapper;
