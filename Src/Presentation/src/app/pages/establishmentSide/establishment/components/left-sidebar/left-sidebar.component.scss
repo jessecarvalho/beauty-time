@@ -1,1 +1,38 @@
 @import "../../shared";
+
+
+
+nav {
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  margin: 0;
+  width: 20%;
+  border-right: 1px solid $fourth-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 0;
+  #logo {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+
+  }
+  li {
+    list-style: none;
+    width: 90%;
+    text-align: center;
+    padding: 10px 0;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
