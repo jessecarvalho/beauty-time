@@ -34,4 +34,7 @@ public record Establishment
     public ActiveEnum Active { get; set; }
     
     public List<Appointment> Appointments { get; set; }
+    
+    public List<Client> Clients { get; set; }
+    public List<Service> Services { get; set; }
 }
