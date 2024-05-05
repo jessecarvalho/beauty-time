@@ -17,12 +17,12 @@ public class EstablishmentRepository : IEstablishmentRepository
     
     public async Task<IEnumerable<Establishment>> GetAllAsync()
     {
-        return await _context.BarberShops.ToListAsync();
+        return await _context.Establishments.ToListAsync();
     }
 
     public async Task<Establishment?> GetByIdAsync(int id)
     {
-        return await _context.BarberShops.FindAsync(id);
+        return await _context.Establishments.FindAsync(id);
     }
 
     public async Task<Establishment?> AddAsync(Establishment establishment)
@@ -34,7 +34,7 @@ public class EstablishmentRepository : IEstablishmentRepository
 
     public async Task<Establishment?> UpdateAsync(int id, Establishment establishment)
     {
-        var existingBarberShop = await _context.BarberShops.FindAsync(id);
+        var existingBarberShop = await _context.Establishments.FindAsync(id);
 
         if (existingBarberShop == null) 
             throw new EstablishmentNotFoundException($"The BarberShop {id} was not found");
@@ -55,12 +55,12 @@ public class EstablishmentRepository : IEstablishmentRepository
 
     public async Task<bool> RemoveAsync(int id)
     {
-        var existingBarberShop = await _context.BarberShops.FindAsync(id);
+        var existingBarberShop = await _context.Establishments.FindAsync(id);
 
         if (existingBarberShop == null)
             throw new EstablishmentNotFoundException($"The BarberShop {id} was not found");
 
-        _context.BarberShops.Remove(existingBarberShop);
+        _context.Establishments.Remove(existingBarberShop);
 
         var result = await _context.SaveChangesAsync();
 
