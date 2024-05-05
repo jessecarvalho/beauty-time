@@ -24,9 +24,12 @@ public record Service
     [Column(TypeName = "decimal(18, 2)")]
     public decimal Price { get; set; }
     
+    public BigInteger EstablishmentId { get; set; }
+    
     [Required]
     public uint TimeInMinutes { get; set; }
     
     [Required]
     public ActiveEnum Active { get; set; }
+    public Establishment Establishment { get; set; }
 }
