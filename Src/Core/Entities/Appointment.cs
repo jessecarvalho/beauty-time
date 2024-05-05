@@ -8,11 +8,15 @@ public record Appointment
     public BigInteger Id { get; set; }
     
     [Required]
-    public Establishment EstablishmentId { get; set; }
+    public BigInteger EstablishmentId { get; set; }
     
     [Required]
-    public Client ClientId { get; set; }
+    public BigInteger ClientId { get; set; }
     
     [Required]
     public DateTime Date { get; set; }
+    
+    public Establishment Establishment { get; set; }
+    
+    public Client Client { get; set; }
 }
