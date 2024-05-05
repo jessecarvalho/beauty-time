@@ -12,7 +12,7 @@ import {ThirdStepComponent} from "./pages/establishmentSide/auth/pages/register/
 
 export const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'establishmentSide',
+  {path: 'establishment',
     children: [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: FirstStepComponent },
@@ -22,7 +22,7 @@ export const routes: Routes = [
 
   ]},
   {
-    path: 'clientSide',
+    path: 'client',
     children: [
       { path: ':establishmentPermalink/:serviceId' , component: ServiceComponent },
       { path: ':establishmentPermalink/:serviceId/schedule' , component: ScheduleComponent },
