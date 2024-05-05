@@ -15,7 +15,6 @@ public record Client
     [MaxLength(255)]
     public string TelephoneNumber { get; set; }
     
-    [Required]
-    [MaxLength(255)]
     public List<Appointment> Appointments { get; set; }
+    public List<Establishment> Establishments { get; set; }
 }
