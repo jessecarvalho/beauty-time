@@ -1,4 +1,4 @@
-<img src="Brand/logo-dark.png">
+<img src="Brand/logo-dark.png" width="300">
 
 
 ## how to run
