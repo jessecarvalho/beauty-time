@@ -1,0 +1,32 @@
+services:
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_volume_data:/data
+    networks:
+      - superDuperNetwork
+      - src_superDuperNetwork
+  redis_insight: #Redis management UI
+    image: redislabs/redisinsight:latest
+    container_name: redis_insight
+    restart: always
+    ports:
+      - "8001:8001"
+    volumes:
+      - redis_insight_volume_data:/db
+    networks:
+      - superDuperNetwork
+      - src_superDuperNetwork
+
+volumes:
+  redis_volume_data:
+  redis_insight_volume_data:
+
+networks:
+  superDuperNetwork:
+  src_superDuperNetwork:  # Add this section
+    external: true
