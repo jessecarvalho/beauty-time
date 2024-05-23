@@ -66,16 +66,6 @@ namespace Infrastructure.Persistence.Migrations
                     b.Property<BigInteger>("Id")
                         .HasColumnType("numeric");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
-                    b.Property<string>("TelephoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Clients");
@@ -110,11 +100,6 @@ namespace Infrastructure.Persistence.Migrations
                         .HasColumnType("character varying(255)");
 
                     b.Property<string>("Permalink")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
-                    b.Property<string>("TelephoneNumber")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
