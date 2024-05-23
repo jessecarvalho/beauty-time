@@ -1,5 +1,7 @@
+using System.Text.Json;
 using Application.DTOs;
 using Application.Interfaces;
+using Core.Interfaces;
 using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,16 +12,30 @@ namespace Api.Controllers;
 public class ServiceController : ControllerBase
 {
     private readonly IServiceService _serviceService;
+    private readonly IRedisService _redisService;
     
-    public ServiceController(IServiceService serviceService)
+    public ServiceController(IServiceService serviceService, IRedisService redisService)
     {
         _serviceService = serviceService;
+        _redisService = redisService;
     }
     
     [HttpGet]
     public async Task<IActionResult> GetAllAsync()
     {
-        return Ok(await _serviceService.GetAllAsync());
+
+        var servicesInCache = await _redisService.GetValueAsync("services");
+        
+        if (servicesInCache is not null)
+        {
+            return Ok(JsonSerializer.Deserialize<List<ServiceResponseDto>>(servicesInCache));
+        }
+        
+        var services = await _serviceService.GetAllAsync();
+        
+        await _redisService.SetValueAsync("services", JsonSerializer.Serialize(services), TimeSpan.FromMinutes(1));
+        
+        return Ok(services);
     }
     
     [HttpGet("{id}")]
@@ -61,6 +77,20 @@ public class ServiceController : ControllerBase
         } catch (ServiceNotFoundException e)
         {
             return NotFound(e.Message);
+        }
+    }
+    
+    [HttpGet("check-redis-connection")]
+    public async Task<IActionResult> CheckRedisConnection()
+    {
+        var canConnect = await _redisService.CheckConnectionAsync();
+        if (canConnect)
+        {
+            return Ok("Successfully connected to Redis.");
+        }
+        else
+        {
+            return Problem("Unable to connect to Redis.");
         }
     }
     
