@@ -1,0 +1,43 @@
+﻿services:
+  application:
+    build:
+      context: .
+      dockerfile: Api/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - db
+    networks:
+      - superDuperNetwork
+    volumes:
+      - ./Api:/app/Api
+      - ./Application:/app/Application
+      - ./Core:/app/Core
+      - ./Infrastructure:/app/Infrastructure
+  presentation:
+    build:
+      context: ./Presentation
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./Presentation:/app  
+    command: "ng serve --host 0.0.0.0 --poll 1" 
+    depends_on:
+      - application
+    networks:
+      - superDuperNetwork
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: beautyTime
+    ports:
+      - "5433:5432"
+    networks:
+      - superDuperNetwork
+networks:
+  superDuperNetwork:
