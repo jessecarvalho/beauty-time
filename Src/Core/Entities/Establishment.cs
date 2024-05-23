@@ -27,10 +27,6 @@ public record Establishment
     public string Address { get; set; }
     
     [Required]
-    [MaxLength(255)]
-    public string TelephoneNumber { get; set; }
-    
-    [Required]
     public ActiveEnum Active { get; set; }
     
     public List<Appointment> Appointments { get; set; }

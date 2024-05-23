@@ -38,9 +38,6 @@ public class ClientRepository : IClientRepository
         if (existingClient == null)
             throw new Exception($"Client {id} was not found");
         
-        existingClient.Name = client.Name;
-        existingClient.TelephoneNumber = client.TelephoneNumber;
-        
         await _context.SaveChangesAsync();
         return existingClient;
     }

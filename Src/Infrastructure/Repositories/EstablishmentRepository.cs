@@ -44,7 +44,6 @@ public class EstablishmentRepository : IEstablishmentRepository
         existingBarberShop.Cover = establishment.Cover;
         existingBarberShop.Permalink = establishment.Permalink;
         existingBarberShop.Address = establishment.Address;
-        existingBarberShop.TelephoneNumber = establishment.TelephoneNumber;
         existingBarberShop.Active = establishment.Active;
         existingBarberShop.Appointments = establishment.Appointments;
 
