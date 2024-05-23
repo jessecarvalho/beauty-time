@@ -4,6 +4,8 @@ using Application.Mappings;
 using FluentValidation.AspNetCore;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,7 @@ builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddAutoMapper(typeof(ApplicationProfile));
 DependencyInjectionConfig.Configure(builder.Services, builder.Configuration);
 JwtConfig.Configure(builder.Services, builder.Configuration);
+
 
 var app = builder.Build();
 
@@ -45,3 +48,4 @@ app.MapControllers();
 // app.UseHttpsRedirection();
 
 app.Run();
+
