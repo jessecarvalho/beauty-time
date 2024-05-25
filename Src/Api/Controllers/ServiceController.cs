@@ -1,3 +1,4 @@
+using System.Numerics;
 using System.Text.Json;
 using Application.DTOs;
 using Application.Interfaces;
@@ -41,9 +42,20 @@ public class ServiceController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetByIdAsync(int id)
     {
+        var serviceInCache = await _redisService.GetValueAsync($"service-{id}");
+        
+        if (serviceInCache is not null)
+        {
+            return Ok(JsonSerializer.Deserialize<ServiceResponseDto>(serviceInCache));
+        }
+        
         try
         {
-            return Ok(await _serviceService.GetByIdAsync(id));
+            var service = await _serviceService.GetByIdAsync(id);
+            
+            await _redisService.SetValueAsync($"service-{id}", JsonSerializer.Serialize(service), TimeSpan.FromMinutes(1));
+            
+            return Ok(service);
         } catch (ServiceNotFoundException e)
         {
             return NotFound(e.Message);
@@ -77,20 +89,6 @@ public class ServiceController : ControllerBase
         } catch (ServiceNotFoundException e)
         {
             return NotFound(e.Message);
-        }
-    }
-    
-    [HttpGet("check-redis-connection")]
-    public async Task<IActionResult> CheckRedisConnection()
-    {
-        var canConnect = await _redisService.CheckConnectionAsync();
-        if (canConnect)
-        {
-            return Ok("Successfully connected to Redis.");
-        }
-        else
-        {
-            return Problem("Unable to connect to Redis.");
         }
     }
     
