@@ -1,3 +1,4 @@
+using System.Numerics;
 using Application.DTOs;
 using Application.Interfaces;
 using AutoMapper;
@@ -23,7 +24,7 @@ public class ServiceService : IServiceService
         return _mapper.Map<IEnumerable<ServiceResponseDto>>(services);
     }
 
-    public async Task<ServiceResponseDto> GetByIdAsync(int id)
+    public async Task<ServiceResponseDto> GetByIdAsync(BigInteger id)
     {
         var service = await _serviceRepository.GetByIdAsync(id);
         return _mapper.Map<ServiceResponseDto>(service);

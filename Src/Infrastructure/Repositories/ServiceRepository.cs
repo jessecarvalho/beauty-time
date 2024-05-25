@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using System.Numerics;
 using Core.Entities;
 using Infrastructure.Interfaces;
 using Infrastructure.Persistence;
@@ -19,9 +21,10 @@ public class ServiceRepository : IServiceRepository
         return await _context.Services.ToListAsync();
     }
 
-    public async Task<Service?> GetByIdAsync(int id)
+    public async Task<Service?> GetByIdAsync(BigInteger id)
     {
-        return await _context.Services.FindAsync(id);
+        var services = await _context.Services.FindAsync(id);
+        return services;
     }
 
     public async Task<Service?> AddAsync(Service service)
