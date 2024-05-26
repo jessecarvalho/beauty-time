@@ -5,7 +5,7 @@ namespace Core.Entities;
 
 public record User
 {
-    public BigInteger Id { get; set; }
+    public int Id { get; set; }
     
     [Required]
     [MaxLength(255)]
@@ -23,9 +23,9 @@ public record User
     [MaxLength]
     public string TelephoneNumber { get; set; }
     
-    public BigInteger EstablishmentId { get; set; }
+    public int EstablishmentId { get; set; }
     
-    public BigInteger ClientId { get; set; }
+    public int ClientId { get; set; }
     
     public Establishment Establishment { get; set; }
     

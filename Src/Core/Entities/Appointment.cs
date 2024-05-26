@@ -5,13 +5,13 @@ namespace Core.Entities;
 
 public record Appointment
 {
-    public BigInteger Id { get; set; }
+    public int Id { get; set; }
     
     [Required]
-    public BigInteger EstablishmentId { get; set; }
+    public int EstablishmentId { get; set; }
     
     [Required]
-    public BigInteger ClientId { get; set; }
+    public int ClientId { get; set; }
     
     [Required]
     public DateTime Date { get; set; }

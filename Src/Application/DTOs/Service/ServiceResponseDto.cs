@@ -5,7 +5,7 @@ namespace Application.DTOs;
 
 public class ServiceResponseDto
 {
-    public BigInteger Id { get; set; }
+    public int Id { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
     public string Icon { get; set; }

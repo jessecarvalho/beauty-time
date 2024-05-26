@@ -24,7 +24,7 @@ public class ServiceService : IServiceService
         return _mapper.Map<IEnumerable<ServiceResponseDto>>(services);
     }
 
-    public async Task<ServiceResponseDto> GetByIdAsync(BigInteger id)
+    public async Task<ServiceResponseDto> GetByIdAsync(int id)
     {
         var service = await _serviceRepository.GetByIdAsync(id);
         return _mapper.Map<ServiceResponseDto>(service);

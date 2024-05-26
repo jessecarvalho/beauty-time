@@ -6,7 +6,7 @@ namespace Core.Entities;
 
 public record Establishment
 {
-    public BigInteger Id { get; set; }
+    public int Id { get; set; }
     
     [Required]
     [MaxLength(255)]

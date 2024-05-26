@@ -21,7 +21,7 @@ public class ServiceRepository : IServiceRepository
         return await _context.Services.ToListAsync();
     }
 
-    public async Task<Service?> GetByIdAsync(BigInteger id)
+    public async Task<Service?> GetByIdAsync(int id)
     {
         var services = await _context.Services.FindAsync(id);
         return services;

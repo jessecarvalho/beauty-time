@@ -5,7 +5,6 @@ namespace Application.DTOs;
 
 public record EstablishmentRequestDto
 {
-    public BigInteger Id { get; set; }
     public string Name { get; set; }
     public string Logo { get; set; }
     public string Cover { get; set; }

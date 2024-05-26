@@ -7,7 +7,7 @@ namespace Core.Entities;
 
 public record Service
 {
-    public BigInteger Id { get; set; }
+    public int Id { get; set; }
     
     [Required]
     [MaxLength(255)]
@@ -24,7 +24,7 @@ public record Service
     [Column(TypeName = "decimal(18, 2)")]
     public decimal Price { get; set; }
     
-    public BigInteger EstablishmentId { get; set; }
+    public int EstablishmentId { get; set; }
     
     [Required]
     public uint TimeInMinutes { get; set; }
