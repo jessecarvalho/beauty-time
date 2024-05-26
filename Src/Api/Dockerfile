@@ -39,4 +39,5 @@ ENV DOTNET_USE_POLLING_FILE_WATCHER=1
 ENV URLS="http://*:8080"
 
 WORKDIR "/app/Api"
-ENTRYPOINT ["dotnet", "watch", "run", "--no-restore", "--no-launch-profile", "--configuration", "Debug"]
+ENTRYPOINT ["tail", "-f", "/dev/null"]
+#ENTRYPOINT ["dotnet", "watch", "run",   "--no-restore", "--no-launch-profile", "--configuration", "Debug"]
