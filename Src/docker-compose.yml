@@ -16,6 +16,7 @@
       - ./Application:/app/Application
       - ./Core:/app/Core
       - ./Infrastructure:/app/Infrastructure
+      - ./.nuget:/root/.nuget
   presentation:
     build:
       context: ./Presentation
