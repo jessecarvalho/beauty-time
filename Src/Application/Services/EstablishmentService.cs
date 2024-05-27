@@ -24,10 +24,10 @@ public class EstablishmentService : IEstablishmentService
         return _mapper.Map<IEnumerable<EstablishmentResponseDto>>(barberShops);
     }
 
-    public async Task<IEnumerable<EstablishmentResponseDto>> GetByIdAsync(int id)
+    public async Task<EstablishmentResponseDto> GetByIdAsync(int id)
     {
         var barberShop = await _establishmentRepository.GetByIdAsync(id);
-        return _mapper.Map<IEnumerable<EstablishmentResponseDto>>(barberShop);
+        return _mapper.Map<EstablishmentResponseDto>(barberShop);
     }
     
     public async Task<EstablishmentResponseDto> AddAsync(EstablishmentRequestDto establishmentRequestDto)
