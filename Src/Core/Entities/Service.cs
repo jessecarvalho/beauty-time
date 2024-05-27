@@ -7,6 +7,8 @@ namespace Core.Entities;
 
 public record Service
 {
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
     
     [Required]
