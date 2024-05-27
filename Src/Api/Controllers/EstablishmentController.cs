@@ -40,11 +40,22 @@ public class EstablishmentController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetByIdAsync(int id)
     {
+        
+        var establishmentInCache = await _redisService.GetValueAsync($"establishment-{id}");
+        
+        if (establishmentInCache is not null)
+        {
+            return Ok(JsonSerializer.Deserialize<EstablishmentResponseDto>(establishmentInCache));
+        }
+        
         try
         {
-            return Ok(await _establishmentService.GetByIdAsync(id));
+            var establishment = await _establishmentService.GetByIdAsync(id);
+            await _redisService.SetValueAsync($"establishment-{id}", JsonSerializer.Serialize(establishment), TimeSpan.FromMinutes(1));
+            return Ok(establishment);
         } catch (ServiceNotFoundException e)
         {
+            _redisService.SetValueAsync($"establishment-{id}", "null", TimeSpan.FromMinutes(1));
             return NotFound(e.Message);
         }
     }
