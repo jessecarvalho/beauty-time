@@ -41,7 +41,17 @@ public class AppointmentController : ControllerBase
     {
         try
         {
-            return Ok(await _appointmentService.GetByIdAsync(id));
+            var appointmentInCache = await _redisService.GetValueAsync($"appointment-{id}");
+
+            if (appointmentInCache is not null)
+                return Ok(JsonSerializer.Deserialize<AppointmentResponseDto>(appointmentInCache));
+
+            var appointment = await _appointmentService.GetByIdAsync(id);
+
+            await _redisService.SetValueAsync($"appointment-{id}", JsonSerializer.Serialize(appointmentInCache),
+                TimeSpan.FromMinutes(1));
+            
+            return Ok(appointment);
         } catch (ServiceNotFoundException e)
         {
             return NotFound(e.Message);
