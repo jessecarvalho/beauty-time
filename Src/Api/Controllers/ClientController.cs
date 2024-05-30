@@ -39,8 +39,19 @@ public class ClientController : ControllerBase
     public async Task<IActionResult> GetByIdAsync(int id)
     {
         try
-        {  
-            return Ok(await _clientService.GetByIdAsync(id));
+        {
+            var clientInCache = await _redisService.GetValueAsync($"client-{id}");
+
+            if (clientInCache is not null)
+                return Ok(JsonSerializer.Deserialize<ClientResponseDto>(clientInCache));
+
+            var clients = await _clientService.GetByIdAsync(id);
+
+            await _redisService.SetValueAsync($"client-{id}", JsonSerializer.Serialize(clients),
+                TimeSpan.FromMinutes(1));
+
+            return Ok(clients);
+            
         } catch (ServiceNotFoundException e)
         {
             return NotFound(e.Message);
