@@ -1,5 +1,7 @@
+using System.Text.Json;
 using Application.DTOs;
 using Application.Interfaces;
+using Core.Interfaces;
 using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,16 +12,27 @@ namespace Api.Controllers;
 public class ClientController : ControllerBase
 {
     private readonly IClientService _clientService;
+    private readonly IRedisService _redisService;
     
-    public ClientController(IClientService clientService)
+    public ClientController(IClientService clientService, IRedisService redisService)
     {
         _clientService = clientService;
+        _redisService = redisService;
     }
     
     [HttpGet]
     public async Task<IActionResult> GetAllAsync()
     {
-        return Ok(await _clientService.GetAllAsync());
+        var clientsInCache = await _redisService.GetValueAsync("clients");
+
+        if (clientsInCache is not null)
+            return Ok(JsonSerializer.Deserialize<IEnumerable<ClientResponseDto>>(clientsInCache));
+
+        var clients = await _clientService.GetAllAsync();
+
+        await _redisService.SetValueAsync("clients", JsonSerializer.Serialize(clients), TimeSpan.FromMinutes(1));
+
+        return Ok(clients);
     }
     
     [HttpGet("{id}")]
