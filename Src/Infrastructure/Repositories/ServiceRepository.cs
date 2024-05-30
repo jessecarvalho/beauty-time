@@ -29,6 +29,11 @@ public class ServiceRepository : IServiceRepository
 
     public async Task<Service?> AddAsync(Service service)
     {
+        var establishment = await _context.Establishments.FindAsync(service.EstablishmentId);
+        
+        if (establishment == null)
+            throw new Exception($"Establishment {service.EstablishmentId} was not found");
+        
         await _context.Services.AddAsync(service);
         await _context.SaveChangesAsync();
         return service;
@@ -40,6 +45,11 @@ public class ServiceRepository : IServiceRepository
         
         if (existingService == null)
             throw new Exception($"Service {id} was not found");
+        
+        var establishment = await _context.Establishments.FindAsync(service.EstablishmentId);
+        
+        if (establishment == null)
+            throw new Exception($"Establishment {service.EstablishmentId} was not found");
         
         existingService.Name = service.Name;
         existingService.Description = service.Description;
