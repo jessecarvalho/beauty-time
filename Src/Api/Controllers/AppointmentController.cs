@@ -1,6 +1,8 @@
+using System.Text.Json;
 using Application.DTOs;
 using Application.Interfaces;
 using Application.Services;
+using Core.Interfaces;
 using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,16 +13,27 @@ namespace Api.Controllers;
 public class AppointmentController : ControllerBase
 {
     private readonly IAppointmentService _appointmentService;
+    private readonly IRedisService _redisService;
     
-    public AppointmentController(IAppointmentService appointmentService)
+    public AppointmentController(IAppointmentService appointmentService, IRedisService redisService)
     {
         _appointmentService = appointmentService;
+        _redisService = redisService;
     }
     
     [HttpGet]
     public async Task<IActionResult> GetAllAsync()
     {
-        return Ok(await _appointmentService.GetAllAsync());
+        var appointmentsInCache = await _redisService.GetValueAsync("clients");
+
+        if (appointmentsInCache is not null)
+            return Ok(JsonSerializer.Deserialize<IEnumerable<AppointmentResponseDto>>(appointmentsInCache));
+
+        var appointment = await _appointmentService.GetAllAsync();
+        
+        await _redisService.SetValueAsync("clients", JsonSerializer.Serialize(appointment), TimeSpan.FromMinutes(1));
+
+        return Ok(appointment);
     }
     
     [HttpGet("{id}")]
