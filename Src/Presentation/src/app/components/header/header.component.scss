@@ -24,6 +24,8 @@ header
 
       li
       {
+        padding: 10px 20px;
+
         a
         {
           text-decoration: none;
@@ -35,6 +37,23 @@ header
           &:hover
           {
             color: $third-color;
+          }
+
+        }
+        &:last-child
+        {
+          background-color: $third-color;
+          border-radius: 5px;
+          color: #fff;
+          transition: background-color 0.3s;
+
+          a {
+            color: #fff;
+          }
+
+          &:hover
+          {
+            background-color: $fourth-color;
           }
         }
       }
