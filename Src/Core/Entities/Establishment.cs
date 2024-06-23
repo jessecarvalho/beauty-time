@@ -36,4 +36,7 @@ public record Establishment
     
     public List<Client> Clients { get; set; }
     public List<Service> Services { get; set; }
+    
+    public User User { get; set; }
+    
 }

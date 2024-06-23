@@ -12,4 +12,6 @@ public record Client
     
     public List<Appointment> Appointments { get; set; }
     public List<Establishment> Establishments { get; set; }
+    
+    public User User { get; set; }
 }
