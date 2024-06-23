@@ -8,10 +8,10 @@
     <input type="text" placeholder="Zip Code" class="input-small" [(ngModel)]="businessZipCode" (ngModelChange)="onInputChange()">
 
     <div class="navigation-buttons">
-      <a [routerLink]="['/establishmentSide/register']" [queryParams]="{businessName, businessState, businessZipCode, businessCity, businessAddress, businessType, email}">
+      <a [routerLink]="['/establishment/register']" [queryParams]="{businessName, businessState, businessZipCode, businessCity, businessAddress, businessType, email}">
         <button class="back">Back</button>
       </a>
-      <a [routerLink]="['/establishmentSide/register/third-step']" [queryParams]="{businessName, businessState, businessZipCode, businessCity, businessAddress, businessType, email}">
+      <a [routerLink]="['/establishment/register/third-step']" [queryParams]="{businessName, businessState, businessZipCode, businessCity, businessAddress, businessType, email}">
         <button class="next" [disabled]="!inputValidated">Next</button>
       </a>
     </div>
