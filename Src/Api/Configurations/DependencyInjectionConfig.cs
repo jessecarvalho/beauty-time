@@ -5,6 +5,7 @@ using Infrastructure.Interfaces;
 using Infrastructure.Persistence;
 using Infrastructure.Redis;
 using Infrastructure.Repositories;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
 
@@ -20,11 +21,16 @@ public static class DependencyInjectionConfig
         services.AddScoped<IClientService, ClientService>();
         services.AddScoped<IEstablishmentService, EstablishmentService>();
         services.AddScoped<IServiceService, ServiceService>();
+        services.AddScoped<IUserServices, UserService>();
         services.AddScoped<IAppointmentRepository, AppointmentRepository>();
         services.AddScoped<IClientRepository, ClientRepository>();
         services.AddScoped<IEstablishmentRepository, EstablishmentRepository>();
         services.AddScoped<IServiceRepository, ServiceRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IRedisService, RedisService>();
+        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<ITokenService, TokenService>();
+
         
         services.AddSingleton<IConnectionMultiplexer>(sp =>
         {
