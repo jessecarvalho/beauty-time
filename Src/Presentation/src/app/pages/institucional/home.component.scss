@@ -91,6 +91,7 @@
   &#services {
     text-align: center;
     width: 100%;
+
     h2 {
       margin-bottom: 25px;
     }
@@ -98,7 +99,10 @@
       display: grid;
       grid-template-columns: 30% 30% 30%;
       gap: 5%;
-
+      fa-icon {
+        font-size: 50px;
+        color: $fourth-color;
+      }
       h3 {
         font-family: 'Montserrat', sans-serif;
       }
