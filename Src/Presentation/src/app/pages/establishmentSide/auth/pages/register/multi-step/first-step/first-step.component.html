@@ -30,10 +30,10 @@
       </label>
     </div>
     <div class="navigation-buttons">
-      <a [routerLink]="['/establishmentSide/register/second-step']" [queryParams]="{businessName, businessState, businessZipCode, businessCity, businessAddress, businessType, email}">
+      <a [routerLink]="['/establishment/register/second-step']" [queryParams]="{businessName, businessState, businessZipCode, businessCity, businessAddress, businessType, email}">
         <button class="next" [disabled]="!businessType">Next</button>
       </a>
     </div>
-    <a href="#">Do you already have an account? Sign In</a>
+    <a routerLink="/establishment/login">Do you already have an account? Sign In</a>
   </div>
 </section>
