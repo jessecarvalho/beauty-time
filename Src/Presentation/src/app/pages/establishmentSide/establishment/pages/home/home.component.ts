@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { LeftSidebarComponent} from "../../components/left-sidebar/left-sidebar.component";
-import { RightSidebarComponent} from "../../components/right-sidebar/right-sidebar.component";
+import {TableModule} from "primeng/table";
 
 @Component({
   selector: 'app-institucional',
@@ -11,10 +11,10 @@ import { RightSidebarComponent} from "../../components/right-sidebar/right-sideb
     HeaderComponent,
     FooterComponent,
     LeftSidebarComponent,
-    RightSidebarComponent
+    TableModule,
   ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
 })
 export class HomeComponent {
 
