@@ -2,22 +2,25 @@
   <a href="#"><img id="logo" src="../../../../../../assets/images/logo-light.png" alt="logo"/></a>
   <ul>
     <a routerLink="/establishment">
-      <li>Home</li>
+      <li><fa-icon [icon]="faHome"></fa-icon> Home</li>
     </a>
     <a routerLink="/establishment/appointments">
-      <li>Appointments</li>
+      <li><fa-icon [icon]="faCheck"></fa-icon> Appointments</li>
     </a>
     <a routerLink="/establishment/business">
-      <li>Business</li>
+      <li><fa-icon [icon]="faShop"></fa-icon>Business</li>
     </a>
     <a routerLink="/establishment/services">
-      <li>Services</li>
+      <li><fa-icon [icon]="faBell"></fa-icon>Services</li>
     </a>
     <a routerLink="/establishment/calendar">
-      <li>Calendar</li>
+      <li><fa-icon [icon]="faCalendar"></fa-icon> Calendar</li>
     </a>
     <a routerLink="/establishment/clients">
-      <li>Clients</li>
+      <li><fa-icon [icon]="faPerson"></fa-icon> Clients</li>
+    </a>
+    <a routerLink="/establishment/reviews">
+      <li><fa-icon [icon]="faStar"></fa-icon> Reviews</li>
     </a>
   </ul>
 </nav>
