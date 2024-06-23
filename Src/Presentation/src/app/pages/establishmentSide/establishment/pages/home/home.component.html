@@ -1,12 +1,50 @@
 <section id="application">
   <div id="application-container">
     <app-header></app-header>
-    <section id="content">
+    <div id="content">
       <app-left-sidebar></app-left-sidebar>
-      <div>
+      <div class="status">
+        <h2>Next Appointments</h2>
+        <p-table [value]="['teste', 'teste']" [tableStyle]="{ 'min-width': '50rem' }">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Code</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Quantity</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+            <tr>
+              <td>{{ product.code }}</td>
+              <td>{{ product.name }}</td>
+              <td>{{ product.category }}</td>
+              <td>{{ product.quantity }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+
+        <h2>Seus clientes</h2>
+        <p-table [value]="['teste', 'teste']" [tableStyle]="{ 'min-width': '50rem' }">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Code</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Quantity</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+            <tr>
+              <td>{{ product.code }}</td>
+              <td>{{ product.name }}</td>
+              <td>{{ product.category }}</td>
+              <td>{{ product.quantity }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
       </div>
-      <app-right-sidebar></app-right-sidebar>
-    </section>
+    </div>
     <app-footer></app-footer>
   </div>
 </section>
