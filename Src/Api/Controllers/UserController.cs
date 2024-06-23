@@ -1,15 +1,97 @@
-// using Microsoft.AspNetCore.Mvc;
-//
-// namespace Api.Controllers;
-//
-// [ApiController]
-// [Route("api/login")]
-// public class UserController
-// {
-//     [HttpPost]
-//     public async Task<IActionResult> Login(UserLoginDto userLoginDto)
-//     {
-//         var user = await _
-//     }
-//     
-// }
+using System.Text.Json;
+using Application.DTOs.User;
+using Application.Interfaces;
+using Core.Entities;
+using Core.Interfaces;
+using Infrastructure.Exceptions;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Api.Controllers;
+
+[ApiController]
+[Route("api/users")]
+public class UserController : ControllerBase
+{
+    private readonly IUserServices _userServices;
+    private readonly IRedisService _redisService;
+    
+    public UserController(IUserServices userServices, IRedisService redisService)
+    {
+        _userServices = userServices;
+        _redisService = redisService;
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> GetAllUsersAsync()
+    {
+        var usersInCache = await _redisService.GetValueAsync("users");
+        
+        if (usersInCache is not null)
+            return Ok(JsonSerializer.Deserialize<List<User>>(usersInCache));
+        
+        var users = await _userServices.GetAllUsersAsync();
+        
+        await _redisService.SetValueAsync("users", JsonSerializer.Serialize(users), TimeSpan.FromMinutes(1));
+        
+        return Ok(users);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetUserByIdAsync(int id)
+    {
+        var userInCache = await _redisService.GetValueAsync($"user-{id}");
+
+        if (userInCache is not null)
+            return Ok(JsonSerializer.Deserialize<User>(userInCache));
+
+        try
+        {
+            var user = await _userServices.GetUserByIdAsync(id);
+
+            await _redisService.SetValueAsync("$user-{id}", JsonSerializer.Serialize(user), TimeSpan.FromMinutes(1));
+
+            return Ok(user);
+        }
+        catch (UserNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddUserAsync(UserRequestDto user)
+    {
+        try
+        {
+            var newUser = await _userServices.AddUserAsync(user);
+            return Ok(newUser);
+
+        }
+        catch (EmailAlreadyExistsException e)
+        {
+            return BadRequest(e.Message);
+        }
+        
+
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateUserAsync(int id, UserRequestDto user)
+    {
+        try
+        {
+            var updatedUser = await _userServices.UpdateUserAsync(id, user);
+            return Ok(updatedUser);
+        }
+        catch (EmailAlreadyExistsException e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteUserAsync(int id)
+    {
+        return Ok(await _userServices.DeleteUserAsync(id));
+    }
+}
