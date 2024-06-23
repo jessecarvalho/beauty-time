@@ -9,13 +9,13 @@ nav {
   top: 0;
   margin: 0;
   width: 20%;
-  border-right: 1px solid $fourth-color;
   display: flex;
   flex-direction: column;
   justify-content: start;
-  align-items: center;
+  align-items: start;
   gap: 15px;
   padding: 15px 0;
+
   #logo {
     width: 80%;
     display: flex;
@@ -24,15 +24,33 @@ nav {
     margin: auto;
 
   }
-  li {
-    list-style: none;
-    width: 90%;
-    text-align: center;
-    padding: 10px 0;
-    cursor: pointer;
 
-    &:hover {
-      text-decoration: underline;
+  a{
+    text-decoration: none;
+    font-size: 20px;
+    color: #fff;
+
+    li {
+      list-style: none;
+      width: 90%;
+      text-align: left;
+      padding: 10px 0;
+      cursor: pointer;
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+
+      fa-icon {
+        color: rgba(255, 255, 255, 0.8);
+        width: 30px;
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+
     }
+
   }
+
 }
