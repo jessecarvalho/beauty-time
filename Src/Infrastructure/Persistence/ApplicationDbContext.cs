@@ -13,6 +13,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Establishment> Establishments { get; set; }
     public DbSet<Client> Clients { get; set; }
     public DbSet<Service> Services { get; set; }
+    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -31,5 +32,9 @@ public class ApplicationDbContext : DbContext
             .HasMany(e => e.Services)
             .WithOne(s => s.Establishment)
             .HasForeignKey(s => s.EstablishmentId);
+        modelBuilder.Entity<Establishment>()
+            .HasOne<User>(u => u.User);
+        modelBuilder.Entity<Client>()
+            .HasOne<User>(u => u.User);
     }
 }
