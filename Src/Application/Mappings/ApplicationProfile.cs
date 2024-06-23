@@ -1,4 +1,5 @@
 using Application.DTOs;
+using Application.DTOs.User;
 using AutoMapper;
 using Core.Entities;
 
@@ -17,6 +18,8 @@ public class ApplicationProfile : Profile
         CreateMap<ClientRequestDto, Client>();
         CreateMap<Service, ServiceResponseDto>();
         CreateMap<ServiceRequestDto, Service>();
+        CreateMap<UserRequestDto, User>();
+        CreateMap<User, UserResponseDto>();
     }
     
 }
