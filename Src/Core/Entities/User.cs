@@ -26,12 +26,4 @@ public record User
     [MaxLength]
     public string TelephoneNumber { get; set; }
     
-    public int EstablishmentId { get; set; }
-    
-    public int ClientId { get; set; }
-    
-    public Establishment Establishment { get; set; }
-    
-    public Client Client { get; set; }
-    
 }
