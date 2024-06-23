@@ -1,1 +1,58 @@
 @import "../../shared";
+header {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  flex-direction: column;
+  margin: 15px 15px 0 0;
+
+  .account {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: relative;
+
+    button {
+      border: none;
+      background-color: rgba(0,0,0,0.5);
+      color: #fff;
+      border-radius: 3px;
+      padding: 15px 32px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    ul {
+      padding: 0;
+      background-color: rgba(0,0,0,0.5);
+      width: 100%;
+      position: absolute;
+      top: 32px;
+      right: 0;
+      border-radius: 5px;
+      z-index: 99;
+
+      &.hidden {
+        display: none;
+      }
+
+      a {
+        color: #fff;
+        text-decoration: none;
+        li {
+          list-style: none;
+          padding: 20px 15px;
+          cursor: pointer;
+          &:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+            text-decoration: none;
+          }
+        }
+      }
+
+    }
+  }
+
+}

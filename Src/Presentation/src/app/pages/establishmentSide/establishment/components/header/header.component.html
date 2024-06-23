@@ -1,1 +1,11 @@
-<p>header works!</p>
+<header>
+  <div class="account">
+    <button (click)="toggleHidden()">
+      My Account
+    </button>
+    <ul [class.hidden]="isHidden">
+      <a href="/"><li>Account</li></a>
+      <a href="/"><li>Logout</li></a>
+    </ul>
+  </div>
+</header>
