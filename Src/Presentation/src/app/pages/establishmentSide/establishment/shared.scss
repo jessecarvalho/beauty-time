@@ -4,7 +4,7 @@
 {
   min-height: 100vh;
   display: flex;
-  background-color: #000;
+  background: linear-gradient(90deg, #261843, #5f3273);
   color: #fff;
 
   #application-container
@@ -20,7 +20,7 @@
     #content
     {
       display: grid;
-      grid-template-columns: 33.3% 33.4% 33.3%;
+      grid-template-columns: 20% 80%;
       flex-direction: row;
       align-items: center;
       justify-content: center;
@@ -30,7 +30,7 @@
     }
     p
     {
-      color: $primary-color;
+      color: #fff;
       font-size: 1.5rem;
       font-weight: 700;
       text-align: center;
@@ -38,12 +38,47 @@
     }
   }
 
+  .under-construction {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+
+    h2 {
+      margin: 25px 0;
+    }
+
+    fa-icon {
+      font-size: 50px;
+    }
+  }
 
 }
+
+
 
 p
 {
   margin: 0;
+}
+
+app-header {
+  width: 100%;
+}
+
+app-footer {
+  width: 80%;
+  margin-left: auto;
+}
+
+::ng-deep .p-datatable .p-datatable-thead > tr > th, ::ng-deep .p-datatable .p-datatable-tbody > tr > td, ::ng-deep .p-datatable .p-datatable-tbody > tr{
+  background-color: rgba(0, 0, 0, 0.05 ) !important;
+  color: #ffffff;
+  border: 1px dashed rgba(255, 255, 255, 0.1 );
 }
 
 
