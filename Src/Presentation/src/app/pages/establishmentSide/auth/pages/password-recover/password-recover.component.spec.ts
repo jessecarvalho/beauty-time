@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RightSidebarComponent } from './right-sidebar.component';
+import { PasswordRecoverComponent } from './password-recover.component';
 
-describe('RightSidebarComponent', () => {
-  let component: RightSidebarComponent;
-  let fixture: ComponentFixture<RightSidebarComponent>;
+describe('PasswordRecoverComponent', () => {
+  let component: PasswordRecoverComponent;
+  let fixture: ComponentFixture<PasswordRecoverComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RightSidebarComponent]
+      imports: [PasswordRecoverComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(RightSidebarComponent);
+    fixture = TestBed.createComponent(PasswordRecoverComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
