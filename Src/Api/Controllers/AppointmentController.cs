@@ -1,9 +1,7 @@
-using System.Text.Json;
 using Application.DTOs;
 using Application.Interfaces;
-using Application.Services;
-using Core.Interfaces;
 using Infrastructure.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -13,44 +11,37 @@ namespace Api.Controllers;
 public class AppointmentController : ControllerBase
 {
     private readonly IAppointmentService _appointmentService;
-    private readonly IRedisService _redisService;
-    
-    public AppointmentController(IAppointmentService appointmentService, IRedisService redisService)
+    private readonly IAuthService _authService;
+
+    public AppointmentController(IAppointmentService appointmentService, IAuthService authService)
     {
         _appointmentService = appointmentService;
-        _redisService = redisService;
+        _authService = authService;
     }
     
-    [HttpGet]
-    public async Task<IActionResult> GetAllAsync()
+    [Authorize]
+    [HttpGet()]
+    [ProducesResponseType(typeof(IEnumerable<AppointmentResponseDto>), 200)]
+    public async Task<IActionResult> GetAllByClientIdAsync()
     {
-        var appointmentsInCache = await _redisService.GetValueAsync("clients");
+        var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
+        var cacheKey = $"clients-{user.Id}";
 
-        if (appointmentsInCache is not null)
-            return Ok(JsonSerializer.Deserialize<IEnumerable<AppointmentResponseDto>>(appointmentsInCache));
+        var appointments = await _appointmentService.GetAllAsync(user.Id, cacheKey);
 
-        var appointment = await _appointmentService.GetAllAsync();
-        
-        await _redisService.SetValueAsync("clients", JsonSerializer.Serialize(appointment), TimeSpan.FromMinutes(1));
-
-        return Ok(appointment);
+        return Ok(appointments);
     }
     
+    [Authorize]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetByIdAsync(int id)
     {
+        var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
+        var cacheKey = $"clients-{user.Id}-appointments-{id}";
+
         try
         {
-            var appointmentInCache = await _redisService.GetValueAsync($"appointment-{id}");
-
-            if (appointmentInCache is not null)
-                return Ok(JsonSerializer.Deserialize<AppointmentResponseDto>(appointmentInCache));
-
-            var appointment = await _appointmentService.GetByIdAsync(id);
-
-            await _redisService.SetValueAsync($"appointment-{id}", JsonSerializer.Serialize(appointmentInCache),
-                TimeSpan.FromMinutes(1));
-            
+            var appointment = await _appointmentService.GetByIdAsync(user.Id, id, cacheKey);
             return Ok(appointment);
         } catch (ServiceNotFoundException e)
         {
@@ -59,30 +50,41 @@ public class AppointmentController : ControllerBase
         
     }
     
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> AddAsync(AppointmentRequestDto appointmentRequestDto)
     {
-        return Ok(await _appointmentService.AddAsync(appointmentRequestDto));
+        var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
+        var cacheKey = $"clients-{user.Id}";
+
+        return Ok(await _appointmentService.AddAsync(user.Id, appointmentRequestDto, cacheKey));
     }
     
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateAsync(int id, AppointmentRequestDto appointmentRequestDto)
     {
+        var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
+        var cacheKey = $"clients-{user.Id}";
+
         try
         {
-            return Ok(await _appointmentService.UpdateAsync(id, appointmentRequestDto));
+            return Ok(await _appointmentService.UpdateAsync(user.Id, id, appointmentRequestDto, cacheKey));
         } catch (ServiceNotFoundException e)
         {
             return NotFound(e.Message);
         }
     }
     
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<IActionResult> RemoveAsync(int id)
     {
+        var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
+
         try
         {
-            return Ok(await _appointmentService.RemoveAsync(id));
+            return Ok(await _appointmentService.RemoveAsync(user.Id, id));
         } catch (ServiceNotFoundException e)
         {
             return NotFound(e.Message);
