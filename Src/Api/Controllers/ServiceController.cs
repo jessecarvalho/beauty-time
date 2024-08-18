@@ -4,6 +4,7 @@ using Application.DTOs;
 using Application.Interfaces;
 using Core.Interfaces;
 using Infrastructure.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -14,17 +15,19 @@ public class ServiceController : ControllerBase
 {
     private readonly IServiceService _serviceService;
     private readonly IRedisService _redisService;
+    private readonly IAuthService _authService;
     
-    public ServiceController(IServiceService serviceService, IRedisService redisService)
+    public ServiceController(IServiceService serviceService, IRedisService redisService, IAuthService authService)
     {
         _serviceService = serviceService;
         _redisService = redisService;
+        _authService = authService;
     }
     
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> GetAllAsync()
     {
-
         var servicesInCache = await _redisService.GetValueAsync("services");
         
         if (servicesInCache is not null)
@@ -39,6 +42,7 @@ public class ServiceController : ControllerBase
         return Ok(services);
     }
     
+    [Authorize]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetByIdAsync(int id)
     {
@@ -62,6 +66,7 @@ public class ServiceController : ControllerBase
         }
     }
     
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> AddAsync(ServiceRequestDto serviceRequestDto)
     {
@@ -80,6 +85,7 @@ public class ServiceController : ControllerBase
         }
     }
     
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<IActionResult> RemoveAsync(int id)
     {
