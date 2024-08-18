@@ -9,21 +9,24 @@ public record User
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
-    
+
     [Required]
     [MaxLength(255)]
-    public string Name { get; set; }
-    
+    public required string Name { get; set; }
+
     [Required]
     [MaxLength(255)]
-    public string Email { get; set; }
-    
+    public required string Email { get; set; }
+
     [Required]
     [MaxLength(255)]
-    public string Password { get; set; }
-    
+    public required string Password { get; set; }
+
     [Required]
-    [MaxLength]
-    public string TelephoneNumber { get; set; }
-    
+    [MaxLength(255)]
+    public required string TelephoneNumber { get; set; }
+
+    public User()
+    {
+    }
 }
