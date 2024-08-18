@@ -14,8 +14,6 @@ public class ApplicationProfile : Profile
         CreateMap<AppointmentRequestDto, Appointment>();
         CreateMap<Establishment, EstablishmentResponseDto>();
         CreateMap<EstablishmentRequestDto, Establishment>();
-        CreateMap<Client, ClientResponseDto>();
-        CreateMap<ClientRequestDto, Client>();
         CreateMap<Service, ServiceResponseDto>();
         CreateMap<ServiceRequestDto, Service>();
         CreateMap<UserRequestDto, User>();
