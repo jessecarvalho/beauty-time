@@ -22,30 +22,6 @@ public class EstablishmentRequestDtoValidator : AbstractValidator<EstablishmentR
         RuleFor(x => x.TelephoneNumber)
             .NotEmpty()
             .WithMessage("TelephoneNumber is required");
-        RuleFor(x => x.Rating)
-            .NotEmpty()
-            .WithMessage("Rating is required");
-        RuleFor(x => x.HasWifi)
-            .NotEmpty()
-            .WithMessage("HasWifi is required");
-        RuleFor(x => x.AccessibleForDisabledPeople)
-            .NotEmpty()
-            .WithMessage("AccessibleForDisabledPeople is required");
-        RuleFor(x => x.HasParkPlace)
-            .NotNull()
-            .WithMessage("HasParkPlace is required");
-        RuleFor(x => x.AcceptGender)
-            .NotEmpty()
-            .WithMessage("AcceptGender is required");
-        RuleFor(x => x.AcceptCreditCard)
-            .NotEmpty()
-            .WithMessage("AcceptCreditCard is required");
-        RuleFor(x => x.AcceptPix)
-            .NotEmpty()
-            .WithMessage("AcceptPix is required");
-        RuleFor(x => x.Active)
-            .NotEmpty()
-            .WithMessage("Active is required");
     }
 
 }
