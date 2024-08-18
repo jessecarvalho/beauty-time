@@ -9,29 +9,34 @@ public record Service
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
-    
+    public int Id { get; init; }
+
     [Required]
     [MaxLength(255)]
-    public string Name { get; set; }
-    
+    public required string Name { get; set; }
+
     [MaxLength(255)]
-    public string Description { get; set; }
-    
+    public required string Description { get; set; }
+
     [Required]
     [MaxLength(255)]
-    public string Icon { get; set; }
-    
+    public required string Icon { get; set; } 
+
     [Required]
     [Column(TypeName = "decimal(18, 2)")]
-    public decimal Price { get; set; }
-    
-    public int EstablishmentId { get; set; }
-    
+    public required decimal Price { get; set; }
+
+    public required int EstablishmentId { get; init; }
+
     [Required]
-    public uint TimeInMinutes { get; set; }
-    
+    public required uint TimeInMinutes { get; set; }
+
     [Required]
-    public ActiveEnum Active { get; set; }
-    public Establishment Establishment { get; set; }
+    public required ActiveEnum Active { get; set; }
+
+    public required Establishment Establishment { get; init; }
+
+    public Service()
+    {
+    }
 }
