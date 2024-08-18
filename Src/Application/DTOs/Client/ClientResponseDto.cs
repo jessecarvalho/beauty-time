@@ -2,10 +2,9 @@ using System.Numerics;
 
 namespace Application.DTOs;
 
-public class ClientResponseDto
+public record ClientResponseDto 
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string TelephoneNumber { get; set; }
-    public List<AppointmentResponseDto> Appointments { get; set; }
+    public required int Id { get; init; }
+    public required List<AppointmentResponseDto> Appointments { get; init; }
+    public int UserId { get; set; }
 }

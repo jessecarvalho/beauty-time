@@ -2,13 +2,13 @@ using Core.Enums;
 
 namespace Application.DTOs;
 
-public class ServiceRequestDto
+public record ServiceRequestDto 
 {
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public string Icon { get; set; }
-    public uint Price { get; set; }
-    public uint TimeInMinutes { get; set; }
-    public uint EstablishmentId { get; set; }
-    public ActiveEnum Active { get; set; }
+    public required string Name { get; set; }
+    public required string Description { get; set; }
+    public required string Icon { get; set; }
+    public required uint Price { get; set; }
+    public required uint TimeInMinutes { get; set; }
+    public required uint EstablishmentId { get; set; }
+    public required ActiveEnum Active { get; set; } 
 }

@@ -4,13 +4,10 @@ using Core.Entities;
 
 namespace Application.DTOs.User;
 
-public class UserRequestDto
+public record UserRequestDto
 {
-    public string Name { get; set; }
-    
-    public string Email { get; set; }
-    
-    public string Password { get; set; }
-    
-    public string TelephoneNumber { get; set; }
+    public required string Name { get; set; } 
+    public required string Email { get; set; } 
+    public required string Password { get; set; }
+    public required string TelephoneNumber { get; set; }
 }

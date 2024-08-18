@@ -1,7 +1,7 @@
 namespace Application.DTOs.Authentication;
 
-public class LoginRequestDto
+public record LoginRequestDto
 {
-    public string Email { get; set; }
-    public string Password { get; set; }
+    public required string Email { get; init; }
+    public required string Password { get; init; }
 }
