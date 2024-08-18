@@ -20,49 +20,96 @@ public class AppointmentController : ControllerBase
     }
     
     [Authorize]
-    [HttpGet()]
+    [HttpGet("client")]
     [ProducesResponseType(typeof(IEnumerable<AppointmentResponseDto>), 200)]
     public async Task<IActionResult> GetAllByClientIdAsync()
     {
         var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
-        var cacheKey = $"clients-{user.Id}";
-
-        var appointments = await _appointmentService.GetAllAsync(user.Id, cacheKey);
-
-        return Ok(appointments);
-    }
-    
-    [Authorize]
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetByIdAsync(int id)
-    {
-        var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
-        var cacheKey = $"clients-{user.Id}-appointments-{id}";
-
+        var cacheKey = $"appointment-clients-{user.Id}";
+        
         try
         {
-            var appointment = await _appointmentService.GetByIdAsync(user.Id, id, cacheKey);
-            return Ok(appointment);
-        } catch (ServiceNotFoundException e)
+            var appointments = await _appointmentService.GetAllAsync(user.Id, cacheKey);
+
+            return Ok(appointments);
+        }
+        catch (ArgumentException e)
         {
-            return NotFound(e.Message);
+            return BadRequest(e.Message);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
         }
         
     }
     
     [Authorize]
-    [HttpPost]
-    public async Task<IActionResult> AddAsync(AppointmentRequestDto appointmentRequestDto)
+    [HttpGet("establishment")]
+    [ProducesResponseType(typeof(IEnumerable<AppointmentResponseDto>), 200)]
+    public async Task<IActionResult> GetAllByEstablishmentIdAsync()
     {
         var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
-        var cacheKey = $"clients-{user.Id}";
+        var cacheKey = $"appointment-establishment-{user.Id}";
+        
+        try
+        {
+            var appointments = await _appointmentService.GetAllAsync(user.Id, cacheKey);
 
-        return Ok(await _appointmentService.AddAsync(user.Id, appointmentRequestDto, cacheKey));
+            return Ok(appointments);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
     }
     
     [Authorize]
+    [HttpGet("client/{id}")]
+    [ProducesResponseType(typeof(AppointmentResponseDto), 200)]
+    public async Task<IActionResult> GetAppointmentByIdAndClientIdAsync(int id)
+    {
+        var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
+        var cacheKey = $"client-{user.Id}-appointments-{id}";
+
+        try
+        {
+            var appointment = await _appointmentService.GetByIdAsync(user.Id, id, cacheKey);
+            return Ok(appointment);
+        } 
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+        
+    }
+    
+    [Authorize]
+    [HttpPost("client")]
+    [ProducesResponseType(typeof(AppointmentResponseDto), 200)]
+    public async Task<IActionResult> AddAppointmentByClientIdAsync(AppointmentRequestDto appointmentRequestDto)
+    {
+        var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
+        var cacheKey = $"appointment-{user.Id}";
+        
+        try
+        {
+            return Ok(await _appointmentService.AddAsync(user.Id, appointmentRequestDto, cacheKey));
+        } catch (UnauthorizedAccessException e)
+        {
+            return Unauthorized(e.Message);
+        } catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+        
+    }
+    
+    
+    [Authorize]
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateAsync(int id, AppointmentRequestDto appointmentRequestDto)
+    [ProducesResponseType(typeof(AppointmentResponseDto), 200)]
+    public async Task<IActionResult> UpdateAppointmentByIdAsync(int id, AppointmentRequestDto appointmentRequestDto)
     {
         var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
         var cacheKey = $"clients-{user.Id}";
@@ -70,6 +117,28 @@ public class AppointmentController : ControllerBase
         try
         {
             return Ok(await _appointmentService.UpdateAsync(user.Id, id, appointmentRequestDto, cacheKey));
+        } catch (AppointmentNotFoundException e)
+        {
+            return NotFound(e.Message);
+        } catch (UnauthorizedAccessException e)
+        {
+            return Unauthorized(e.Message);
+        } catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [Authorize]
+    [HttpDelete("establishment/{id}")]
+    [ProducesResponseType(typeof(bool), 200)]
+    public async Task<IActionResult> RemoveAppointmentByClientIdAsync(int id)
+    {
+        var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
+
+        try
+        {
+            return Ok(await _appointmentService.RemoveAsync(id, user.Id ));
         } catch (ServiceNotFoundException e)
         {
             return NotFound(e.Message);
@@ -77,8 +146,9 @@ public class AppointmentController : ControllerBase
     }
     
     [Authorize]
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> RemoveAsync(int id)
+    [HttpDelete("client/{id}")]
+    [ProducesResponseType(typeof(bool), 200)]
+    public async Task<IActionResult> RemoveAppointmentByEstablishmentAsync(int id)
     {
         var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
 
