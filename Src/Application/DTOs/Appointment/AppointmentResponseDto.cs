@@ -1,10 +1,12 @@
-using System.Numerics;
-
 namespace Application.DTOs;
 
 public record AppointmentResponseDto
 {
-    public int Id { get; set; }
-    public EstablishmentResponseDto EstablishmentId { get; set; }
-    public ClientResponseDto ClientId { get; set; }
+    public int Id { get; init; }
+
+    public DateTime Date { get; init; }
+
+    public int EstablishmentId { get; init; }
+
+    public int UserId { get; init; }
 }

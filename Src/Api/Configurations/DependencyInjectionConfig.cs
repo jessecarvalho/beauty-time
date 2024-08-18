@@ -18,12 +18,10 @@ public static class DependencyInjectionConfig
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
         services.AddScoped<IAppointmentService, AppointmentService>();
-        services.AddScoped<IClientService, ClientService>();
         services.AddScoped<IEstablishmentService, EstablishmentService>();
         services.AddScoped<IServiceService, ServiceService>();
         services.AddScoped<IUserServices, UserService>();
         services.AddScoped<IAppointmentRepository, AppointmentRepository>();
-        services.AddScoped<IClientRepository, ClientRepository>();
         services.AddScoped<IEstablishmentRepository, EstablishmentRepository>();
         services.AddScoped<IServiceRepository, ServiceRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
@@ -34,7 +32,7 @@ public static class DependencyInjectionConfig
         
         services.AddSingleton<IConnectionMultiplexer>(sp =>
         {
-            var configurationOptions = ConfigurationOptions.Parse(configuration["Redis:ConnectionString"], true);
+            var configurationOptions = ConfigurationOptions.Parse(configuration["Redis:ConnectionString"]!, true);
             configurationOptions.AbortOnConnectFail = false;
             return ConnectionMultiplexer.Connect(configurationOptions);
         });
