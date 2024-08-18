@@ -4,6 +4,7 @@ using Application.Interfaces;
 using Core.Entities;
 using Core.Interfaces;
 using Infrastructure.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -14,16 +15,20 @@ public class UserController : ControllerBase
 {
     private readonly IUserServices _userServices;
     private readonly IRedisService _redisService;
+    private readonly IAuthService _authService;
     
-    public UserController(IUserServices userServices, IRedisService redisService)
+    public UserController(IUserServices userServices, IRedisService redisService, IAuthService authService)
     {
         _userServices = userServices;
         _redisService = redisService;
+        _authService = authService;
     }
     
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> GetAllUsersAsync()
     {
+        
         var usersInCache = await _redisService.GetValueAsync("users");
         
         if (usersInCache is not null)
@@ -35,7 +40,8 @@ public class UserController : ControllerBase
         
         return Ok(users);
     }
-
+    
+    [Authorize]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetUserByIdAsync(int id)
     {
@@ -74,13 +80,16 @@ public class UserController : ControllerBase
         
 
     }
-
+    
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateUserAsync(int id, UserRequestDto user)
     {
+        var loggedUser = _authService.GetUserFromRequestAsync(HttpContext.Request);
+        
         try
         {
-            var updatedUser = await _userServices.UpdateUserAsync(id, user);
+            var updatedUser = await _userServices.UpdateUserAsync(id, user, loggedUser.Id);
             return Ok(updatedUser);
         }
         catch (EmailAlreadyExistsException e)
@@ -89,6 +98,7 @@ public class UserController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteUserAsync(int id)
     {
