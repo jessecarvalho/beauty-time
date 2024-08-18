@@ -25,6 +25,11 @@ public class EstablishmentRepository : IEstablishmentRepository
         return await _context.Establishments.FindAsync(id);
     }
 
+    public async Task<Establishment> GetByUserIdAsync(int id)
+    {
+        return await _context.Establishments.FirstOrDefaultAsync(e => e.UserId == id) ?? throw new EstablishmentNotFoundException($"The Establishment {id} was not found");
+    }
+
     public async Task<Establishment?> AddAsync(Establishment establishment)
     {
         await _context.AddAsync(establishment);
@@ -39,24 +44,29 @@ public class EstablishmentRepository : IEstablishmentRepository
         if (existingBarberShop == null) 
             throw new EstablishmentNotFoundException($"The BarberShop {id} was not found");
         
+        if (existingBarberShop.UserId != establishment.UserId)
+            throw new EstablishmentNotFoundException($"The BarberShop {id} was not found");
+        
         existingBarberShop.Name = establishment.Name;
         existingBarberShop.Logo = establishment.Logo;
         existingBarberShop.Cover = establishment.Cover;
         existingBarberShop.Permalink = establishment.Permalink;
         existingBarberShop.Address = establishment.Address;
         existingBarberShop.Active = establishment.Active;
-        existingBarberShop.Appointments = establishment.Appointments;
 
         await _context.SaveChangesAsync();
 
         return establishment;
     }
 
-    public async Task<bool> RemoveAsync(int id)
+    public async Task<bool> RemoveAsync(int id, int userId)
     {
         var existingBarberShop = await _context.Establishments.FindAsync(id);
 
         if (existingBarberShop == null)
+            throw new EstablishmentNotFoundException($"The BarberShop {id} was not found");
+        
+        if (existingBarberShop.UserId != userId)
             throw new EstablishmentNotFoundException($"The BarberShop {id} was not found");
 
         _context.Establishments.Remove(existingBarberShop);

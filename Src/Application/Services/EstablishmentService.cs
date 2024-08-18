@@ -1,3 +1,4 @@
+using System.Numerics;
 using Application.DTOs;
 using Application.Interfaces;
 using AutoMapper;
@@ -20,30 +21,34 @@ public class EstablishmentService : IEstablishmentService
     
     public async Task<IEnumerable<EstablishmentResponseDto>> GetAllAsync()
     {
-        var barberShops = await _establishmentRepository.GetAllAsync();
-        return _mapper.Map<IEnumerable<EstablishmentResponseDto>>(barberShops);
+        var establishments = await _establishmentRepository.GetAllAsync();
+        return _mapper.Map<IEnumerable<EstablishmentResponseDto>>(establishments);
     }
 
     public async Task<EstablishmentResponseDto> GetByIdAsync(int id)
     {
-        var barberShop = await _establishmentRepository.GetByIdAsync(id);
+        var establishment = await _establishmentRepository.GetByIdAsync(id);
+        return _mapper.Map<EstablishmentResponseDto>(establishment);
+    }
+    
+    public async Task<EstablishmentResponseDto> AddAsync(EstablishmentRequestDto establishmentRequestDto, int userId)
+    {
+        var newEstablishment = _mapper.Map<Establishment>(establishmentRequestDto);
+        newEstablishment.UserId = userId;
+        var barberShop = await _establishmentRepository.AddAsync(newEstablishment);
         return _mapper.Map<EstablishmentResponseDto>(barberShop);
     }
     
-    public async Task<EstablishmentResponseDto> AddAsync(EstablishmentRequestDto establishmentRequestDto)
+    public async Task<EstablishmentResponseDto> UpdateAsync(int id, EstablishmentRequestDto establishmentRequestDto, int userId)
     {
-        var barberShop = await _establishmentRepository.AddAsync(_mapper.Map<Establishment>(establishmentRequestDto));
-        return _mapper.Map<EstablishmentResponseDto>(barberShop);
+        var establishmentToUpdate = _mapper.Map<Establishment>(establishmentRequestDto);
+        establishmentToUpdate.UserId = userId;
+        var updatedEstablishment = await _establishmentRepository.UpdateAsync(id, establishmentToUpdate);
+        return _mapper.Map<EstablishmentResponseDto>(updatedEstablishment);
     }
     
-    public async Task<EstablishmentResponseDto> UpdateAsync(int id, EstablishmentRequestDto establishmentRequestDto)
+    public async Task<bool> RemoveAsync(int id, int userId)
     {
-        var barberShop = await _establishmentRepository.UpdateAsync(id, _mapper.Map<Establishment>(establishmentRequestDto));
-        return _mapper.Map<EstablishmentResponseDto>(barberShop);
-    }
-    
-    public async Task<bool> RemoveAsync(int id)
-    {
-        return await _establishmentRepository.RemoveAsync(id);
+        return await _establishmentRepository.RemoveAsync(id, userId);
     }
 }

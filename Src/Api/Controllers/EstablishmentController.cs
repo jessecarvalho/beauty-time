@@ -3,6 +3,7 @@ using Application.DTOs;
 using Application.Interfaces;
 using Core.Interfaces;
 using Infrastructure.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -13,13 +14,16 @@ public class EstablishmentController : ControllerBase
 {
     private readonly IEstablishmentService _establishmentService;
     private readonly IRedisService _redisService;
+    private readonly IAuthService _authService;
     
-    public EstablishmentController(IEstablishmentService establishmentService, IRedisService redisService)
+    public EstablishmentController(IEstablishmentService establishmentService, IRedisService redisService, IAuthService authService)
     {
         _establishmentService = establishmentService;
         _redisService = redisService;
+        _authService = authService;
     }
     
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> GetAllAsync()
     {
@@ -37,6 +41,7 @@ public class EstablishmentController : ControllerBase
         return Ok(establishments);
     }
     
+    [Authorize]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetByIdAsync(int id)
     {
@@ -55,35 +60,44 @@ public class EstablishmentController : ControllerBase
             return Ok(establishment);
         } catch (ServiceNotFoundException e)
         {
-            _redisService.SetValueAsync($"establishment-{id}", "null", TimeSpan.FromMinutes(1));
+            await _redisService.SetValueAsync($"establishment-{id}", "null", TimeSpan.FromMinutes(1));
             return NotFound(e.Message);
         }
     }
     
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> AddAsync(EstablishmentRequestDto establishmentRequestDto)
     {
-        return Ok(await _establishmentService.AddAsync(establishmentRequestDto));
+        var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
+        
+        return Ok(await _establishmentService.AddAsync(establishmentRequestDto, user.Id));
     }
     
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateAsync(int id, EstablishmentRequestDto establishmentRequestDto)
     {
+        var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
+
         try
         {
-            return Ok(await _establishmentService.UpdateAsync(id, establishmentRequestDto));
+            return Ok(await _establishmentService.UpdateAsync(id, establishmentRequestDto, user.Id));
         } catch (ServiceNotFoundException e)
         {
             return NotFound(e.Message);
         }
     }
     
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<IActionResult> RemoveAsync(int id)
     {
+        var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
+
         try
         {
-            return Ok(await _establishmentService.RemoveAsync(id));
+            return Ok(await _establishmentService.RemoveAsync(id, user.Id));
         } catch (ServiceNotFoundException e)
         {
             return NotFound(e.Message);
