@@ -43,7 +43,7 @@ public class UserService : IUserServices
         return _mapper.Map<UserResponseDto>(newUser);
     }
 
-    public async Task<UserResponseDto> UpdateUserAsync(int id, UserRequestDto userRequestDto)
+    public async Task<UserResponseDto> UpdateUserAsync(int id, UserRequestDto userRequestDto, int loggedUser)
     {
         var emailIsUnique = await _userRepository.GetUserByEmailAsync(userRequestDto.Email);
         
