@@ -22,21 +22,6 @@ namespace Infrastructure.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ClientEstablishment", b =>
-                {
-                    b.Property<int>("ClientsId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("EstablishmentsId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ClientsId", "EstablishmentsId");
-
-                    b.HasIndex("EstablishmentsId");
-
-                    b.ToTable("ClientEstablishment");
-                });
-
             modelBuilder.Entity("Core.Entities.Appointment", b =>
                 {
                     b.Property<int>("Id")
@@ -45,40 +30,22 @@ namespace Infrastructure.Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("EstablishmentId")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("EstablishmentId");
-
-                    b.ToTable("Appointments");
-                });
-
-            modelBuilder.Entity("Core.Entities.Client", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EstablishmentId");
+
                     b.HasIndex("UserId");
 
-                    b.ToTable("Clients");
+                    b.ToTable("Appointments");
                 });
 
             modelBuilder.Entity("Core.Entities.Establishment", b =>
@@ -194,54 +161,29 @@ namespace Infrastructure.Persistence.Migrations
 
                     b.Property<string>("TelephoneNumber")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ClientEstablishment", b =>
-                {
-                    b.HasOne("Core.Entities.Client", null)
-                        .WithMany()
-                        .HasForeignKey("ClientsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Entities.Establishment", null)
-                        .WithMany()
-                        .HasForeignKey("EstablishmentsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Core.Entities.Appointment", b =>
                 {
-                    b.HasOne("Core.Entities.Client", "Client")
-                        .WithMany("Appointments")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Core.Entities.Establishment", "Establishment")
-                        .WithMany("Appointments")
+                        .WithMany()
                         .HasForeignKey("EstablishmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Client");
-
-                    b.Navigation("Establishment");
-                });
-
-            modelBuilder.Entity("Core.Entities.Client", b =>
-                {
                     b.HasOne("Core.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Establishment");
 
                     b.Navigation("User");
                 });
@@ -268,15 +210,8 @@ namespace Infrastructure.Persistence.Migrations
                     b.Navigation("Establishment");
                 });
 
-            modelBuilder.Entity("Core.Entities.Client", b =>
-                {
-                    b.Navigation("Appointments");
-                });
-
             modelBuilder.Entity("Core.Entities.Establishment", b =>
                 {
-                    b.Navigation("Appointments");
-
                     b.Navigation("Services");
                 });
 #pragma warning restore 612, 618
