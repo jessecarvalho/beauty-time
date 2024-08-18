@@ -11,7 +11,7 @@ public static class JwtConfig
     public static void Configure(IServiceCollection services, IConfiguration configuration)
     {
         var jwtSettings = configuration.GetSection("JwtSettings").Get<JwtSettings>();
-        var key = Encoding.ASCII.GetBytes(jwtSettings.SecretKey);
+        var key = Encoding.ASCII.GetBytes(jwtSettings!.SecretKey);
 
         services.AddAuthentication(x =>
         {

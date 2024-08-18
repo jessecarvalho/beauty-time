@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Api.Configurations;
 using Api.Middleware;
 using Application.Mappings;
@@ -44,13 +45,13 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddControllers();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddAutoMapper(typeof(ApplicationProfile));
+builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => options.SerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 builder.Services.AddSingleton(resolver => resolver.GetRequiredService<IOptions<JwtSettings>>().Value);
 
 DependencyInjectionConfig.Configure(builder.Services, builder.Configuration);
 JwtConfig.Configure(builder.Services, builder.Configuration);
-
 
 var app = builder.Build();
 
