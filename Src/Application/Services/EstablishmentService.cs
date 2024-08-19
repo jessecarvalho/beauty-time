@@ -1,10 +1,10 @@
 using System.Numerics;
 using Application.DTOs;
+using Application.DTOs.User;
 using Application.Interfaces;
 using AutoMapper;
 using Core.Entities;
 using Infrastructure.Interfaces;
-using Infrastructure.Repositories;
 
 namespace Application.Services;
 
@@ -29,6 +29,12 @@ public class EstablishmentService : IEstablishmentService
     {
         var establishment = await _establishmentRepository.GetByIdAsync(id);
         return _mapper.Map<EstablishmentResponseDto>(establishment);
+    }
+    
+    public async Task<List<UserResponseDto>> GetClientsByEstablishmentIdAsync(int id)
+    {
+        var establishment = await _establishmentRepository.GetClientsByEstablishmentIdAsync(id);
+        return _mapper.Map<List<UserResponseDto>>(establishment);
     }
     
     public async Task<EstablishmentResponseDto> AddAsync(EstablishmentRequestDto establishmentRequestDto, int userId)

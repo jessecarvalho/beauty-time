@@ -66,6 +66,15 @@ public class EstablishmentController : ControllerBase
     }
     
     [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> GetEstablishmentClientsAsync()
+    {
+        var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
+        var users = await _establishmentService.GetClientsByEstablishmentIdAsync(user.Id);
+        return Ok(users);
+    }
+    
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> AddAsync(EstablishmentRequestDto establishmentRequestDto)
     {

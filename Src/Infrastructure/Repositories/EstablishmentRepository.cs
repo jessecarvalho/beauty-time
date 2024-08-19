@@ -30,6 +30,19 @@ public class EstablishmentRepository : IEstablishmentRepository
     {
         return await _context.Establishments.FirstOrDefaultAsync(e => e.UserId == id) ?? throw new EstablishmentNotFoundException($"The Establishment {id} was not found");
     }
+    
+    public async Task<List<User>> GetClientsByEstablishmentIdAsync(int id)
+    {
+        var establishment = await _context.Establishments.FindAsync(id);
+
+        if (establishment == null)
+            throw new EstablishmentNotFoundException($"The Establishment {id} was not found");
+
+        return await _context.Users
+            .AsQueryable()
+            .Where(u => u.Id == id)
+            .ToListAsync();
+    }
 
     public async Task<Establishment?> AddAsync(Establishment establishment)
     {
