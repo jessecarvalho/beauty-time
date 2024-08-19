@@ -70,8 +70,13 @@ public class EstablishmentController : ControllerBase
     public async Task<IActionResult> AddAsync(EstablishmentRequestDto establishmentRequestDto)
     {
         var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
-        
-        return Ok(await _establishmentService.AddAsync(establishmentRequestDto, user.Id));
+        try
+        {
+            return Ok(await _establishmentService.AddAsync(establishmentRequestDto, user.Id));
+        }  catch (EstablishmentAlreadyExistsException e)
+        {
+            return BadRequest(e.Message);
+        }
     }
     
     [Authorize]

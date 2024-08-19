@@ -2,6 +2,7 @@ using Core.Entities;
 using Infrastructure.Exceptions;
 using Infrastructure.Interfaces;
 using Infrastructure.Persistence;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
@@ -32,6 +33,12 @@ public class EstablishmentRepository : IEstablishmentRepository
 
     public async Task<Establishment?> AddAsync(Establishment establishment)
     {
+        var existingEstablishment =
+            await _context.Establishments.FirstOrDefaultAsync(e => e.UserId == establishment.UserId);
+        
+        if (existingEstablishment != null)
+            throw new EstablishmentAlreadyExistsException($"The Establishment for user {establishment.UserId} already exists");
+        
         await _context.AddAsync(establishment);
         await _context.SaveChangesAsync();
         return establishment;
