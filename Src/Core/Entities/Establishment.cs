@@ -7,9 +7,17 @@ namespace Core.Entities;
 
 public record Establishment
 {
-    public Establishment(List<Service>? services)
+    public Establishment() { }
+    public Establishment(string name, string logo, string cover, string permalink, string address, ActiveEnum active, int userId)
     {
-        Services = services;
+        Name = name;
+        Logo = logo;
+        Cover = cover;
+        Permalink = permalink;
+        Address = address;
+        Active = active;
+        UserId = userId;
+        Services = new List<Service>();
     }
 
     [Key]

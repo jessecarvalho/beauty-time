@@ -34,9 +34,19 @@ public record Service
     [Required]
     public required ActiveEnum Active { get; set; }
 
-    public required Establishment Establishment { get; init; }
+    public required Establishment Establishment { get; set; }
 
-    public Service()
+    public Service() { }
+
+    public Service(string name, string description, string icon, decimal price, int establishmentId, uint timeInMinutes, ActiveEnum active, Establishment establishment)
     {
+        Name = name;
+        Description = description;
+        Icon = icon;
+        Price = price;
+        EstablishmentId = establishmentId;
+        TimeInMinutes = timeInMinutes;
+        Active = active;
+        Establishment = establishment;
     }
 }

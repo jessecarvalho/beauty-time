@@ -28,6 +28,7 @@ public class ServiceController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllAsync()
     {
+        var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
         var servicesInCache = await _redisService.GetValueAsync("services");
         
         if (servicesInCache is not null)
@@ -35,7 +36,7 @@ public class ServiceController : ControllerBase
             return Ok(JsonSerializer.Deserialize<List<ServiceResponseDto>>(servicesInCache));
         }
         
-        var services = await _serviceService.GetAllAsync();
+        var services = await _serviceService.GetAllAsync(user.Id);
         
         await _redisService.SetValueAsync("services", JsonSerializer.Serialize(services), TimeSpan.FromMinutes(1));
         
@@ -46,6 +47,7 @@ public class ServiceController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetByIdAsync(int id)
     {
+        var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
         var serviceInCache = await _redisService.GetValueAsync($"service-{id}");
         
         if (serviceInCache is not null)
@@ -55,7 +57,7 @@ public class ServiceController : ControllerBase
         
         try
         {
-            var service = await _serviceService.GetByIdAsync(id);
+            var service = await _serviceService.GetByIdAsync(id, user.Id);
             
             await _redisService.SetValueAsync($"service-{id}", JsonSerializer.Serialize(service), TimeSpan.FromMinutes(1));
             
@@ -70,15 +72,24 @@ public class ServiceController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> AddAsync(ServiceRequestDto serviceRequestDto)
     {
-        return Ok(await _serviceService.AddAsync(serviceRequestDto));
+        var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
+        try
+        {
+            return Ok(await _serviceService.AddAsync(serviceRequestDto, user.Id));
+        } catch (ServiceAlreadyExistsException e)
+        {
+            return BadRequest(e.Message);
+        }
     }
     
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateAsync(int id, ServiceRequestDto serviceRequestDto)
     {
+        var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
+
         try
         {
-            return Ok(await _serviceService.UpdateAsync(id, serviceRequestDto));
+            return Ok(await _serviceService.UpdateAsync(id, serviceRequestDto, user.Id));
         } catch (ServiceNotFoundException e)
         {
             return NotFound(e.Message);
@@ -89,9 +100,11 @@ public class ServiceController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> RemoveAsync(int id)
     {
+        var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
+
         try
         {
-            return Ok(await _serviceService.RemoveAsync(id));
+            return Ok(await _serviceService.RemoveAsync(id, user.Id));
         } catch (ServiceNotFoundException e)
         {
             return NotFound(e.Message);

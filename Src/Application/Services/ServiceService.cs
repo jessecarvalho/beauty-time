@@ -17,32 +17,32 @@ public class ServiceService : IServiceService
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<ServiceResponseDto>> GetAllAsync()
+    public async Task<IEnumerable<ServiceResponseDto>> GetAllAsync(int userId)
     {
-        var services = await _serviceRepository.GetAllAsync();
+        var services = await _serviceRepository.GetAllAsync(userId);
         return _mapper.Map<IEnumerable<ServiceResponseDto>>(services);
     }
 
-    public async Task<ServiceResponseDto> GetByIdAsync(int id)
+    public async Task<ServiceResponseDto> GetByIdAsync(int id, int userId)
     {
-        var service = await _serviceRepository.GetByIdAsync(id);
+        var service = await _serviceRepository.GetByIdAsync(id, userId);
         return _mapper.Map<ServiceResponseDto>(service);
     }
 
-    public async Task<ServiceResponseDto> AddAsync(ServiceRequestDto serviceRequestDto)
+    public async Task<ServiceResponseDto> AddAsync(ServiceRequestDto serviceRequestDto, int userId)
     {
-        var service = await _serviceRepository.AddAsync(_mapper.Map<Service>(serviceRequestDto));
+        var service = await _serviceRepository.AddAsync(_mapper.Map<Service>(serviceRequestDto), userId);
         return _mapper.Map<ServiceResponseDto>(service);
     }
 
-    public async Task<ServiceResponseDto> UpdateAsync(int id, ServiceRequestDto serviceRequestDto)
+    public async Task<ServiceResponseDto> UpdateAsync(int id, ServiceRequestDto serviceRequestDto, int userId)
     {
-        var service = await _serviceRepository.UpdateAsync(id, _mapper.Map<Service>(serviceRequestDto));
+        var service = await _serviceRepository.UpdateAsync(id, _mapper.Map<Service>(serviceRequestDto), userId);
         return _mapper.Map<ServiceResponseDto>(service);
     }
 
-    public async Task<bool> RemoveAsync(int id)
+    public async Task<bool> RemoveAsync(int id, int userId)
     {
-        return await _serviceRepository.RemoveAsync(id);
+        return await _serviceRepository.RemoveAsync(id, userId);
     }
 }

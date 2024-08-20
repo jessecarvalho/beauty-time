@@ -9,6 +9,5 @@ public record ServiceRequestDto
     public required string Icon { get; set; }
     public required uint Price { get; set; }
     public required uint TimeInMinutes { get; set; }
-    public required uint EstablishmentId { get; set; }
     public required ActiveEnum Active { get; set; } 
 }
