@@ -66,7 +66,7 @@ public class EstablishmentController : ControllerBase
     }
     
     [Authorize]
-    [HttpGet]
+    [HttpGet("clients")]
     public async Task<IActionResult> GetEstablishmentClientsAsync()
     {
         var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
