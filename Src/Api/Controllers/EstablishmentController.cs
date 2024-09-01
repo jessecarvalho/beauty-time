@@ -117,4 +117,46 @@ public class EstablishmentController : ControllerBase
             return NotFound(e.Message);
         }
     }
+    
+    [Authorize]
+    [HttpPatch("enable/{id}")]
+    public async Task<IActionResult> EnableAsync(int id)
+    {
+        var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
+
+        try
+        {
+            return Ok(await _establishmentService.EnableAsync(id, user.Id));
+        } catch (ServiceNotFoundException e)
+        {
+            return NotFound(e.Message);
+        } catch (EstablishmentAlreadyEnabledException e)
+        {
+            return BadRequest(e.Message);
+        } catch (EstablishmentNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+    }
+    
+    [Authorize]
+    [HttpPatch("disable/{id}")]
+    public async Task<IActionResult> DisableAsync(int id)
+    {
+        var user = await _authService.GetUserFromRequestAsync(HttpContext.Request);
+
+        try
+        {
+            return Ok(await _establishmentService.DisableAsync(id, user.Id));
+        } catch (ServiceNotFoundException e)
+        {
+            return NotFound(e.Message);
+        } catch (EstablishmentAlreadyDisabledException e)
+        {
+            return BadRequest(e.Message);
+        } catch (EstablishmentNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+    }
 }

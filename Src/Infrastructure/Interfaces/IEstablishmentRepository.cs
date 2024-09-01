@@ -11,4 +11,6 @@ public interface IEstablishmentRepository
     public Task<Establishment?> AddAsync (Establishment establishment);
     public Task<Establishment?> UpdateAsync (int id, Establishment establishment);
     public Task<bool> RemoveAsync (int id, int userId);
+    public Task<bool> EnableAsync(int id, int userId);
+    public Task<bool> DisableAsync(int id, int userId);
 }

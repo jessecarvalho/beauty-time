@@ -12,4 +12,6 @@ public interface IEstablishmentService
     Task<EstablishmentResponseDto> AddAsync(EstablishmentRequestDto establishmentRequestDto, int userId);
     Task<EstablishmentResponseDto> UpdateAsync(int id, EstablishmentRequestDto establishmentRequestDto, int userId);
     Task<bool> RemoveAsync(int id, int userId);
+    Task<bool> EnableAsync(int id, int userId);
+    Task<bool> DisableAsync(int id, int userId);
 }

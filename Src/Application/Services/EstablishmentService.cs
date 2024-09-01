@@ -57,4 +57,15 @@ public class EstablishmentService : IEstablishmentService
     {
         return await _establishmentRepository.RemoveAsync(id, userId);
     }
+
+    public async Task<bool> EnableAsync(int id, int userId)
+    {
+        return await _establishmentRepository.EnableAsync(id, userId);
+        
+    }
+    
+    public async Task<bool> DisableAsync(int id, int userId)
+    {
+        return await _establishmentRepository.DisableAsync(id, userId);
+    }
 }

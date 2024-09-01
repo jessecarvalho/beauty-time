@@ -3,6 +3,7 @@ using Infrastructure.Exceptions;
 using Infrastructure.Interfaces;
 using Infrastructure.Persistence;
 using System.Linq;
+using Core.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
@@ -97,5 +98,43 @@ public class EstablishmentRepository : IEstablishmentRepository
         var result = await _context.SaveChangesAsync();
 
         return result > 0;
+    }
+
+    public async Task<bool> EnableAsync(int id, int userId)
+    {
+        var establishment = await _context.Establishments.FindAsync(id);
+        
+        if (establishment is null)
+            throw new EstablishmentNotFoundException($"The Establishment {id} was not found");
+
+        if (establishment.UserId != userId)
+            throw new UnauthorizedAccessException("You are not allowed to enable this establishment");
+        
+        if (establishment.Active == ActiveEnum.Active)
+            throw new EstablishmentAlreadyEnabledException($"The Establishment {id} is already enabled");
+        
+        establishment.Active = ActiveEnum.Active;
+        await _context.SaveChangesAsync();
+        
+        return true;
+    }
+
+    public async Task<bool> DisableAsync(int id, int userId)
+    {
+        var establishment = await _context.Establishments.FindAsync(id);
+        
+        if (establishment is null)
+            throw new EstablishmentNotFoundException($"The Establishment {id} was not found");
+        
+        if (establishment.UserId != userId)
+            throw new UnauthorizedAccessException("You are not allowed to disable this establishment");
+        
+        if (establishment.Active == ActiveEnum.Disabled)
+            throw new EstablishmentAlreadyDisabledException($"The Establishment {id} is already disabled");
+        
+        establishment.Active = ActiveEnum.Disabled;
+        await _context.SaveChangesAsync();
+        
+        return true;
     }
 }
