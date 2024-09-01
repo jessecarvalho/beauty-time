@@ -12,4 +12,5 @@ public record ServiceResponseDto
     public required uint Price { get; init; }
     public required uint TimeInMinutes { get; init; }
     public required ActiveEnum Active { get; init; }
+    public required int EstablishmentId { get; init; }
 }

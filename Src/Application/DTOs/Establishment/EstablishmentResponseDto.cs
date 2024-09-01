@@ -1,6 +1,3 @@
-using System.Numerics;
-using Core.Enums;
-
 namespace Application.DTOs;
 
 public record EstablishmentResponseDto
@@ -12,4 +9,6 @@ public record EstablishmentResponseDto
     public required string Permalink { get; init; }
     public required string Address { get; init; }
     public required string TelephoneNumber { get; init; }
+    public required List<ServiceResponseDto> Services { get; init; }
+    public required List<WorkingDayResponseDto> WorkingDays { get; init; }
 }

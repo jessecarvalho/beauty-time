@@ -13,6 +13,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Establishment> Establishments { get; set; }
     public DbSet<Service> Services { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<WorkingDay> WorkingDays { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

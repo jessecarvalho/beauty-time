@@ -28,6 +28,9 @@ public static class DependencyInjectionConfig
         services.AddScoped<IRedisService, RedisService>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IWorkingDayService, WorkingDayService>();
+        services.AddScoped<IWorkingDayRepository, WorkingDayRepository>();
+        
 
         
         services.AddSingleton<IConnectionMultiplexer>(sp =>

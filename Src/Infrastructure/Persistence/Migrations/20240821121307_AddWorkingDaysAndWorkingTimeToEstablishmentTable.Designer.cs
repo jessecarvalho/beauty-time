@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240821121307_AddWorkingDaysAndWorkingTimeToEstablishmentTable")]
+    partial class AddWorkingDaysAndWorkingTimeToEstablishmentTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,6 +67,9 @@ namespace Infrastructure.Persistence.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
+                    b.Property<DateTime?>("ClosingTime")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Cover")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -78,6 +84,9 @@ namespace Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
+
+                    b.Property<DateTime?>("OpeningTime")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Permalink")
                         .IsRequired()
@@ -169,7 +178,7 @@ namespace Infrastructure.Persistence.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Core.Entities.WorkingDay", b =>
+            modelBuilder.Entity("Core.Enums.WorkingDayEnum", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -177,28 +186,18 @@ namespace Infrastructure.Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Day")
+                    b.Property<int?>("EstablishmentId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("EndHour")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("EstablishmentId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("StartHour")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EstablishmentId");
 
-                    b.ToTable("WorkingDays");
+                    b.ToTable("WorkingDayEnum");
                 });
 
             modelBuilder.Entity("Core.Entities.Appointment", b =>
@@ -242,13 +241,11 @@ namespace Infrastructure.Persistence.Migrations
                     b.Navigation("Establishment");
                 });
 
-            modelBuilder.Entity("Core.Entities.WorkingDay", b =>
+            modelBuilder.Entity("Core.Enums.WorkingDayEnum", b =>
                 {
                     b.HasOne("Core.Entities.Establishment", null)
                         .WithMany("WorkingDays")
-                        .HasForeignKey("EstablishmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EstablishmentId");
                 });
 
             modelBuilder.Entity("Core.Entities.Establishment", b =>

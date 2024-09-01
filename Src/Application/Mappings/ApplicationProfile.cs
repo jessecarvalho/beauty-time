@@ -18,6 +18,8 @@ public class ApplicationProfile : Profile
         CreateMap<ServiceRequestDto, Service>();
         CreateMap<UserRequestDto, User>();
         CreateMap<User, UserResponseDto>();
+        CreateMap<WorkingDay, WorkingDayResponseDto>();
+        CreateMap<WorkingDayRequestDto, WorkingDay>();
     }
     
 }

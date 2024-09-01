@@ -23,7 +23,10 @@ public class EstablishmentRepository : IEstablishmentRepository
 
     public async Task<Establishment?> GetByIdAsync(int id)
     {
-        return await _context.Establishments.FindAsync(id);
+        return await _context.Establishments
+            .Include(e => e.Services)
+            .Include(e => e.WorkingDays)
+            .FirstOrDefaultAsync(e => e.Id == id);
     }
 
     public async Task<Establishment> GetByUserIdAsync(int id)

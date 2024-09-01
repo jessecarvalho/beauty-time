@@ -1,0 +1,72 @@
+<mxfile host="Electron" modified="2024-07-09T15:46:23.673Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.18 Chrome/120.0.6099.199 Electron/28.1.2 Safari/537.36" etag="JA8eBjoYeuhyopqSy_yE" version="22.1.18" type="device">
+  <diagram name="Page-1" id="v39AryzPhel--86jx9Df">
+    <mxGraphModel dx="1434" dy="847" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="YyPM19EGk28Viyh7vD1m-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="LhTm-JxjbF8HW0whLVFu-1" target="YyPM19EGk28Viyh7vD1m-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LhTm-JxjbF8HW0whLVFu-1" value="Client" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
+          <mxGeometry x="100" y="30" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="YyPM19EGk28Viyh7vD1m-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="YyPM19EGk28Viyh7vD1m-2" target="YyPM19EGk28Viyh7vD1m-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YyPM19EGk28Viyh7vD1m-2" value="Acess platform with establishment link" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="200" y="30" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="YyPM19EGk28Viyh7vD1m-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="YyPM19EGk28Viyh7vD1m-8" target="YyPM19EGk28Viyh7vD1m-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YyPM19EGk28Viyh7vD1m-8" value="Choose service(s)" style="whiteSpace=wrap;html=1;verticalAlign=top;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="30" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="YyPM19EGk28Viyh7vD1m-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="YyPM19EGk28Viyh7vD1m-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="660" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YyPM19EGk28Viyh7vD1m-10" value="Choose a date" style="whiteSpace=wrap;html=1;verticalAlign=top;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="30" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="YyPM19EGk28Viyh7vD1m-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="YyPM19EGk28Viyh7vD1m-18">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="660" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YyPM19EGk28Viyh7vD1m-21" value="no" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="YyPM19EGk28Viyh7vD1m-20">
+          <mxGeometry x="-0.3333" y="-3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YyPM19EGk28Viyh7vD1m-23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="YyPM19EGk28Viyh7vD1m-18" target="YyPM19EGk28Viyh7vD1m-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YyPM19EGk28Viyh7vD1m-27" value="yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="YyPM19EGk28Viyh7vD1m-23">
+          <mxGeometry x="0.25" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YyPM19EGk28Viyh7vD1m-18" value="Has account?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="170" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="YyPM19EGk28Viyh7vD1m-29" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="YyPM19EGk28Viyh7vD1m-22" target="YyPM19EGk28Viyh7vD1m-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YyPM19EGk28Viyh7vD1m-22" value="Login in the platform" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="180" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="YyPM19EGk28Viyh7vD1m-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="YyPM19EGk28Viyh7vD1m-24" target="YyPM19EGk28Viyh7vD1m-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YyPM19EGk28Viyh7vD1m-24" value="Register in the platform" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="340" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="YyPM19EGk28Viyh7vD1m-28" value="Confirm the appointment" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="180" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

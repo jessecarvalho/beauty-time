@@ -18,6 +18,7 @@ public record Establishment
         Active = active;
         UserId = userId;
         Services = new List<Service>();
+        WorkingDays = new List<WorkingDay>();
     }
 
     [Key]
@@ -48,8 +49,9 @@ public record Establishment
     [Required]
     public required int UserId { get; set; }
 
-    public List<Service>? Services { get; set; }
-
+    public List<Service>? Services { get; set; } = new List<Service>();
     public required User User { get; init; }
+    
+    public List<WorkingDay>? WorkingDays { get; set; } = new List<WorkingDay>();
 
 }
